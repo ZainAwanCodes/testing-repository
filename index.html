@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Sprints Lab — Innovating Intelligence. Crafting the Future.</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="logo-mark"><img src="assets/logo.png" alt="Dev Sprints Lab logo"> <a href="#"> Dev Sprints Lab</a></div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burgerBtn"
+      aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuCloseBtn" aria-label="Close navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <canvas id="particles"></canvas>
+    <div class="aurora"><span></span><span></span></div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Innovate • Automate • Code</span>
+        <h1 class="hero-heading">Dev Sprints Lab<br>Sprinting <span class="accent">Towards</span><br>What's Next</h1>
+        <p class="hero-desc">An AI-Powered Digital Solutions Agency helping Startups, SMEs, and Enterprises build modern
+          websites, scalable web & mobile applications, AI-powered automation, and growth-focused digital marketing
+          solutions.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary">Our Solutions <svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg></a>
+          <a href="#contact" class="btn btn-ghost">Let's Connect <svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg></a>
+        </div>
+      </div>
+      <div class="sphere-stage">
+        <div class="sphere-parallax" id="spherePar">
+          <div class="molecule-outer-glow"></div>
+          <div class="molecule-ring"></div>
+          <div class="molecule-float">
+            <div id="heroRotor" class="molecule-brand">
+              <img src="assets/logo.png" alt="Dev Sprints Lab" class="molecule-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- STICKY SCROLL SERVICES (VISIBLE ON DESKTOP PC / LAPTOP) -->
+  <section class="services-pin" id="services-desktop">
+    <div class="services-inner">
+      <div class="svc-left">
+        <span class="eyebrow">What We Offer?</span>
+        <h3 class="svc-title" id="svcTitle">Web Development</h3>
+        <p class="svc-desc" id="svcDesc">Fast, resilient web platforms built on modern frameworks.</p>
+        <div class="svc-timeline" id="svcTimeline">
+          <div class="svc-node active" data-i="0">
+            <div class="num">01</div>
+            <div class="name">Web Development</div>
+          </div>
+          <div class="svc-line"></div>
+          <div class="svc-node" data-i="1">
+            <div class="num">02</div>
+            <div class="name">AI Agents</div>
+          </div>
+          <div class="svc-line"></div>
+          <div class="svc-node" data-i="2">
+            <div class="num">03</div>
+            <div class="name">SEO &amp; Marketing</div>
+          </div>
+          <div class="svc-line"></div>
+          <div class="svc-node" data-i="3">
+            <div class="num">04</div>
+            <div class="name">WordPress &amp; Shopify</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="svc-center">
+        <div class="sphere-stage" style="height:400px;">
+          <div class="sphere-parallax" id="svcPar">
+            <div class="molecule-outer-glow"></div>
+            <div class="molecule-ring"></div>
+            <div class="svc-node-marks">
+              <span class="node-mark svc-node-0 active" data-i="0"></span>
+              <span class="node-mark svc-node-1" data-i="1"></span>
+              <span class="node-mark svc-node-2" data-i="2"></span>
+              <span class="node-mark svc-node-3" data-i="3"></span>
+            </div>
+            <div class="molecule-float">
+              <div id="svcRotor" class="molecule-brand molecule-brand--services">
+                <img src="assets/logo.png" alt="Dev Sprints Lab" class="molecule-img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="svc-right">
+        <div class="svc-card-stage" id="svcCardStage">
+          <!-- 1. Web Development -->
+          <div class="svc-card" data-i="0" style="opacity:1;">
+            <div class="svc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+            </div>
+            <span class="svc-num-big">01 / 04</span>
+            <h4>Web Development</h4>
+            <p>Fast, resilient web platforms built with Next.js, MERN, and PostgreSQL—engineered for performance,
+              scalability, and seamless growth.
+            </p>
+            <!-- <div class="svc-feats"><span>Next.js</span><span>React</span><span>Node.js</span><span>Tailwind
+                CSS</span><span>Full-Stack Apps</span></div> -->
+            <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank" rel="noopener noreferrer"
+                class="btn btn-ghost explore-service-btn"
+                style="padding:10px 18px;font-size:12.5px;background-color:#FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:10px 18px;font-size:12.5px;">For
+                Inquiry</a></span>
+          </div>
+          <!-- 2. AI Agents -->
+          <div class="svc-card" data-i="1" style="opacity:0;">
+            <div class="svc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8L7 17M17 7l2.8-2.8" />
+              </svg>
+            </div>
+            <span class="svc-num-big">02 / 04</span>
+            <h4>AI Agents</h4>
+            <p>Scalable AI agents built with LangGraph, Python, and Gemini, featuring RAG pipelines, n8n automation, and
+              secure FastAPI backends with JWT, Pinecone, and PostgreSQL.</p>
+            <!-- <div class="svc-feats"><span>AI Agents</span><span>LLM Integration</span><span>RAG
+                Systems</span><span>Autonomous Workflows</span><span>Custom Chatbots</span></div> -->
+            <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank" rel="noopener noreferrer"
+                class="btn btn-ghost explore-service-btn"
+                style="padding:10px 18px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:10px 18px;font-size:12.5px;
+;">For Inquiry</a></span>
+          </div>
+          <!-- 3. SEO & Marketing -->
+          <div class="svc-card" data-i="2" style="opacity:0;">
+            <div class="svc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 6l-9.5 9.5-5-5L1 17" />
+                <path d="M17 6h6v6" />
+              </svg>
+            </div>
+            <span class="svc-num-big">03 / 04</span>
+            <h4>SEO &amp; Marketing</h4>
+            <p>Data-driven SEO and digital marketing strategies designed to boost visibility, attract the right
+              audience, generate leads, and turn online traffic into measurable growth.
+            </p>
+            <!-- <div class="svc-feats"><span>On-Page SEO</span><span>Content Strategy</span><span>Lead
+                Generation</span><span>Digital Marketing</span><span>Analytics</span></div> -->
+            <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank" rel="noopener noreferrer"
+                class="btn btn-ghost explore-service-btn"
+                style="padding:10px 18px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:10px 18px;font-size:12.5px;
+;">For Inquiry</a></span>
+          </div>
+          <!-- 4. WordPress & Shopify -->
+          <div class="svc-card" data-i="3" style="opacity:0;">
+            <div class="svc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+              </svg>
+            </div>
+            <span class="svc-num-big">04 / 04</span>
+            <h4>WordPress &amp; Shopify</h4>
+            <p>Custom WordPress websites and Shopify stores built for performance, responsiveness, SEO, and
+              conversions—from business sites and landing pages to complete e-commerce solutions.
+
+            </p>
+            <!-- <div class="svc-feats"><span>WooCommerce</span><span>Shopify Themes</span><span>Store
+                Optimization</span><span>CMS Development</span><span>E-Commerce Strategy</span></div> -->
+            <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank" rel="noopener noreferrer"
+                class="btn btn-ghost explore-service-btn"
+                style="padding:10px 18px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:10px 18px;font-size:12.5px;">For
+                Inquiry</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / FULL CAPABILITIES SECTION (PRIMARY ON MOBILE & TABLETS) -->
+  <section class="more-services" id="services">
+    <div class="wrap">
+      <span class="eyebrow">Our Services &amp; Capabilities</span>
+      <h2 class="section-title">Everything We Bring To The Table</h2>
+      <p class="section-sub">Explore our complete range of services built to transform and scale modern businesses.</p>
+      <div class="ms-grid">
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
+              <circle cx="12" cy="12" r="9" />
+            </svg></div>
+          <span class="ms-num">01</span>
+          <h4>Web Development</h4>
+          <p>Fast, resilient web platforms built with React, Node.js, and Tailwind CSS—engineered for performance,
+            scalability, responsive seamless web experiences, and long-term digital growth.</p>
+          <!-- <div class="ms-tags"><span>Next.js</span><span>React</span><span>Node.js</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8L7 17M17 7l2.8-2.8" />
+            </svg></div>
+          <span class="ms-num">02</span>
+          <h4>AI Agents</h4>
+          <p>Scalable AI agents built with LangGraph, Python, and Gemini, featuring RAG data pipelines and n8n
+            automation with secure backends using FASTAPI, Pinecone, and PostgreSQL.</p>
+          <!-- <div class="ms-tags"><span>Agentic AI</span><span>RAG Systems</span><span>LLMs</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M23 6l-9.5 9.5-5-5L1 17" />
+              <path d="M17 6h6v6" />
+            </svg></div>
+          <span class="ms-num">03</span>
+          <h4>SEO &amp; Marketing</h4>
+          <p>Data-driven SEO and digital marketing strategies designed to boost visibility, attract the right audience,
+            generate leads, and turn traffic into measurable online growth.</p>
+          <!-- <div class="ms-tags"><span>SEO</span><span>Digital Marketing</span><span>Lead Gen</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+            </svg></div>
+          <span class="ms-num">04</span>
+          <h4>WordPress &amp; Shopify</h4>
+          <p>Custom WordPress websites and Shopify stores built for speed, responsiveness, SEO, and conversions—from
+            business sites and landing pages to complete e-commerce solutions.</p>
+          <!-- <div class="ms-tags"><span>WordPress</span><span>Shopify</span><span>WooCommerce</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="7" y="2" width="10" height="20" rx="2" />
+              <path d="M11 18h2" />
+            </svg></div>
+          <span class="ms-num">05</span>
+          <h4>Mobile Development</h4>
+          <p>Cross-platform mobile apps built with React Native and Flutter, delivering fast, scalable, seamless
+            experiences across iOS and Android for modern mobile digital products. </p>
+          <!-- <div class="ms-tags"><span>Flutter</span><span>iOS</span><span>Android</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+        <div class="ms-card reveal">
+          <div class="ms-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+            </svg></div>
+          <span class="ms-num">06</span>
+          <h4>Backend Development</h4>
+          <p>Robust backend systems built with Python, FastAPI, PHP, and AJAX—designed for secure APIs, seamless data
+            management, reliable performance, and scalable digital solutions.</p>
+          <!-- <div class="ms-tags"><span>Shopify</span><span>WooCommerce</span><span>Payment Gateways</span></div> -->
+          <div class="ms-action"> <span> <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank"
+                rel="noopener noreferrer" class="btn btn-ghost explore-service-btn"
+                style="padding:8px 16px;font-size:12.5px;background-color: #FF2D55;">Explore Service</a>
+              <a href="#contact" class="btn btn-ghost" style="padding:8px 16px;font-size:12.5px;">For Inquiry</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <!-- <section class="projects" id="projects">
+    <div class="wrap">
+      <div class="projects-head">
+        <div>
+          <span class="eyebrow">Featured Projects</span>
+          <h2 class="section-title">Our Latest Work</h2>
+        </div>
+        <div class="carousel-nav">
+          <button id="projPrev" aria-label="Previous Project">&#8592;</button>
+          <button id="projNext" aria-label="Next Project">&#8594;</button>
+        </div>
+      </div>
+      <div class="carousel" id="carousel">
+        <div class="proj-card reveal">
+          <div class="proj-media mock-chat"><span class="tag">Web App</span>
+            <div class="mock-bubble mock-bubble--in">How can I automate onboarding?</div>
+            <div class="mock-bubble mock-bubble--out">Here's a 3-step workflow you can deploy today.</div>
+            <div class="mock-bubble mock-bubble--in short"></div>
+          </div>
+          <div class="proj-body">
+            <h4>AI Chat Application</h4>
+            <div class="tech">OpenAI · Next.js · Supabase</div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-media mock-travel"><span class="tag">Mobile App</span>
+            <svg class="mock-path" viewBox="0 0 320 210" preserveAspectRatio="none">
+              <path d="M20 170 C 90 40, 200 190, 300 50" fill="none" stroke="#ff2d55" stroke-width="2"
+                stroke-dasharray="6 6" opacity=".7" />
+              <circle cx="20" cy="170" r="5" fill="#fff" />
+              <circle cx="300" cy="50" r="5" fill="#ff2d55" />
+            </svg>
+            <div class="mock-card-chip">Flight · 2h 14m</div>
+          </div>
+          <div class="proj-body">
+            <h4>Travel Booking App</h4>
+            <div class="tech">Flutter · Firebase</div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-media mock-analytics"><span class="tag">Dashboard</span>
+            <div class="mock-bars">
+              <span style="height:38%"></span><span style="height:62%"></span><span style="height:45%"></span><span
+                style="height:80%"></span><span style="height:55%"></span><span style="height:70%"></span><span
+                style="height:34%"></span>
+            </div>
+            <svg class="mock-line" viewBox="0 0 300 60" preserveAspectRatio="none">
+              <path d="M0 40 L40 30 L80 45 L120 15 L160 30 L200 10 L240 25 L300 5" fill="none" stroke="#ff2d55"
+                stroke-width="2" />
+            </svg>
+          </div>
+          <div class="proj-body">
+            <h4>Smart Analytics</h4>
+            <div class="tech">React · Python · FastAPI</div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-media mock-learn"><span class="tag">Web Platform</span>
+            <div class="mock-course-grid">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="mock-progress"><i style="width:64%"></i></div>
+          </div>
+          <div class="proj-body">
+            <h4>Learning Platform</h4>
+            <div class="tech">Next.js · Node.js · MongoDB</div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-media mock-ecom"><span class="tag">Web App</span>
+            <div class="mock-product-grid">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="mock-card-chip">Cart · 3 items</div>
+          </div>
+          <div class="proj-body">
+            <h4>E-Commerce Platform</h4>
+            <div class="tech">React · Node.js · AWS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- TECH STACK -->
+  <section class="tech-stack" id="techstack">
+    <div class="wrap">
+      <span class="eyebrow">Technologies We Use</span>
+      <h2 class="section-title">Our Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(97,218,251,.12);"><img src="images/reactjs.svg" alt="React"
+              loading="lazy"></div>
+          <div class="name">React</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph"><img src="images/nextjs.webp" alt="Next.js" loading="lazy"></div>
+          <div class="name">Next.js</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(55,118,171,.16);"><img src="images/Python.webp" alt="Python"
+              loading="lazy"></div>
+          <div class="name">Python</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(0,150,136,.14);"><img src="images/Fastapi.png" alt="FastAPI"
+              loading="lazy"></div>
+          <div class="name">FastAPI</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(2,86,155,.16);"><img src="images/Flutter.png" alt="Flutter"
+              loading="lazy"></div>
+          <div class="name">Flutter</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(51,153,51,.14);"><img src="images/images.png" alt="PHP"
+              loading="lazy"></div>
+          <div class="name">PHP</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(71,162,72,.14);"><img src="images/mongodb.webp" alt="MongoDB"
+              loading="lazy"></div>
+          <div class="name">MongoDB</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(255,153,0,.14);"><img src="images/aws.png" alt="AWS" loading="lazy">
+          </div>
+          <div class="name">AWS</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(36,150,237,.14);"><img src="images/Docker.png" alt="Docker"
+              loading="lazy"></div>
+          <div class="name">Docker</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(33,117,155,.16);"><img src="images/Wordpress.jpg" alt="WordPress"
+              loading="lazy"></div>
+          <div class="name">WordPress</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph"><img src="images/Openai.jpg" alt="OpenAI" loading="lazy"></div>
+          <div class="name">OpenAI</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(150,88,138,.16);"><img src="images/Woo.png" alt="WooCommerce"
+              loading="lazy"></div>
+          <div class="name">WooCommerce</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(122,181,92,.16);"><img src="images/Shopify.webp" alt="Shopify"
+              loading="lazy"></div>
+          <div class="name">Shopify</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(56,189,248,.14);"><img src="images/Tailwind.webp" alt="Tailwind CSS"
+              loading="lazy"></div>
+          <div class="name">Tailwind</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(66,133,244,.14);"><img src="images/Gemini.png" alt="Gemini"
+              loading="lazy"></div>
+          <div class="name">Gemini</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(24,119,242,.14);"><img src="images/meta.png" alt="Meta"
+              loading="lazy"></div>
+          <div class="name">Meta</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(255,76,65,.14);"><img src="images/n8n.jpg" alt="n8n" loading="lazy">
+          </div>
+          <div class="name">n8n</div>
+        </div>
+        <div class="tech-chip reveal">
+          <div class="glyph" style="background:rgba(0,113,227,.14);"><img src="images/sql.png" alt="SQL" loading="lazy">
+          </div>
+          <div class="name">SQL</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">How It Works</span>
+        <h2 class="section-title">Our Process</h2>
+      </div>
+      <div class="process-row">
+        <!-- Progress bar track (desktop horizontal / mobile vertical) -->
+        <div class="process-progress-track">
+          <div class="process-progress-fill" id="processProgressFill"></div>
+        </div>
+
+        <div class="process-step" data-step="0">
+          <div class="step-number">01</div>
+          <div class="ring">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v4l3 2" />
+            </svg>
+          </div>
+          <h5>Discovery</h5>
+          <p>Understand your needs</p>
+        </div>
+        <div class="process-step" data-step="1">
+          <div class="step-number">02</div>
+          <div class="ring">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l9 4.5v9L12 20l-9-4.5v-9z" />
+            </svg>
+          </div>
+          <h5>Design</h5>
+          <p>Plan and strategize</p>
+        </div>
+        <div class="process-step" data-step="2">
+          <div class="step-number">03</div>
+          <div class="ring">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 6L2 12l6 6M16 6l6 6-6 6" />
+            </svg>
+          </div>
+          <h5>Development</h5>
+          <p>Build with best technologies</p>
+        </div>
+        <div class="process-step" data-step="3">
+          <div class="step-number">04</div>
+          <div class="ring">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3M4 4v5h5M20 20v-5h-5" />
+            </svg>
+          </div>
+          <h5>Deployment</h5>
+          <p>Launch with confidence</p>
+        </div>
+        <div class="process-step" data-step="4">
+          <div class="step-number">05</div>
+          <div class="ring">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 10a4 4 0 00-3.9-4A6 6 0 006 8.6 3.5 3.5 0 006 15.5h12a3.5 3.5 0 000-7z" />
+            </svg>
+          </div>
+          <h5>Support</h5>
+          <p>We are always here to help</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDERS -->
+  <section class="founders" id="founders">
+    <div class="wrap">
+      <span class="eyebrow">Meet The Team</span>
+      <h2 class="section-title">The People Behind Dev Sprints Lab</h2>
+      <p class="section-sub">Four specialists, one studio — here's who owns what.</p>
+      <div class="founders-grid">
+        <div class="founder-card">
+          <span class="founder-index">01</span>
+          <div class="founder-avatar">
+            <span>Z</span>
+            <img src="./assets/team/zain.jpeg" alt="Zain" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/team/zain.jpg';">
+          </div>
+          <h4 class="founder-name">M. Zain Awan<span class="founder-emoji"></span></h4>
+          <div class="founder-role">Co-founder</div>
+          <!-- <div class="founder-skills">
+            <span>React.js/Next.js Development</span>
+            <span>Frontend Architecture</span><span>Flutter Apps</span><span>React Native</span><span>UI/UX
+              Implementation</span><span>Website Maintenance</span>
+          </div> -->
+          <div>
+            <p>“Building Today What Others Imagine Tomorrow.”</p>
+          </div>
+          <a href="https://www.linkedin.com/in/muhammadzainawan2121/" class="founder-linkedin" target="_blank"
+            rel="noopener" aria-label="Zain's LinkedIn profile"><svg width="14" height="14" viewBox="0 0 24 24"
+              fill="currentColor">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <rect x="6" y="10" width="2.4" height="8" fill="currentColor" />
+              <circle cx="7.2" cy="6.7" r="1.4" fill="currentColor" />
+              <path
+                d="M11.5 10h2.3v1.3c.6-.9 1.6-1.5 3-1.5 2.3 0 3.7 1.5 3.7 4.3V18h-2.4v-3.4c0-1.4-.6-2.3-1.8-2.3-1 0-1.7.7-2 1.4-.1.3-.1.6-.1 1V18h-2.4z" />
+            </svg> LinkedIn</a>
+        </div>
+        <div class="founder-card">
+          <span class="founder-index">02</span>
+          <div class="founder-avatar">
+            <span>H</span>
+            <img src="./assets/team/hunzallah.jpeg" alt="Hunzallah" loading="lazy"
+              onerror="this.onerror=null;this.src='./assets/team/hunzallah.jpeg';">
+          </div>
+          <h4 class="founder-name">Hunzallah Iqbal<span class="founder-emoji"></span></h4>
+          <div class="founder-role">Co-founder</div>
+          <!-- <div class="founder-skills">
+            <span>Javascript </span> <span>MySQL</span><span>jQuery</span>
+            <span>RDBMS</span><span>Ajax</span><span>CMS/ERP Development</span><span>Website Maintenance</span>
+          </div> -->
+          <div>
+            <p>“No limits. No excuses. Just progress.”</p>
+          </div>
+          <a href="https://www.linkedin.com/in/mhunny21704522b/" class="founder-linkedin" target="_blank" rel="noopener"
+            aria-label="Hunzallah's LinkedIn profile"><svg width="14" height="14" viewBox="0 0 24 24"
+              fill="currentColor">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <rect x="6" y="10" width="2.4" height="8" fill="currentColor" />
+              <circle cx="7.2" cy="6.7" r="1.4" fill="currentColor" />
+              <path
+                d="M11.5 10h2.3v1.3c.6-.9 1.6-1.5 3-1.5 2.3 0 3.7 1.5 3.7 4.3V18h-2.4v-3.4c0-1.4-.6-2.3-1.8-2.3-1 0-1.7.7-2 1.4-.1.3-.1.6-.1 1V18h-2.4z" />
+            </svg> LinkedIn</a>
+        </div>
+        <div class="founder-card">
+          <span class="founder-index">03</span>
+          <div class="founder-avatar">
+            <span>G</span>
+            <img src="./assets/team/gul.jpeg" alt="Gul" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/team/gul.jpg';">
+          </div>
+          <h4 class="founder-name">GulShaheer Aslam<span class="founder-emoji"></span></h4>
+          <div class="founder-role">Co-founder</div>
+          <!-- <div class="founder-skills">
+            <span>Python Development</span><span>FastAPI</span><span>AI Chatbots</span>
+            <span>RAG Systems</span><span>Agentic AI</span><span>API Development</span><span>AI Automation</span>
+          </div> -->
+          <div>
+            <p>“We don’t follow the future. We build it.”</p>
+          </div>
+          <a href="https://www.linkedin.com/in/gulshaheer-aslam-195445254/" class="founder-linkedin" target="_blank"
+            rel="noopener" aria-label="Gul's LinkedIn profile"><svg width="14" height="14" viewBox="0 0 24 24"
+              fill="currentColor">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <rect x="6" y="10" width="2.4" height="8" fill="currentColor" />
+              <circle cx="7.2" cy="6.7" r="1.4" fill="currentColor" />
+              <path
+                d="M11.5 10h2.3v1.3c.6-.9 1.6-1.5 3-1.5 2.3 0 3.7 1.5 3.7 4.3V18h-2.4v-3.4c0-1.4-.6-2.3-1.8-2.3-1 0-1.7.7-2 1.4-.1.3-.1.6-.1 1V18h-2.4z" />
+            </svg> LinkedIn</a>
+        </div>
+
+        <div class="founder-card">
+          <span class="founder-index">04</span>
+          <div class="founder-avatar">
+            <span>R</span>
+            <img src="./assets/team/rajeel.png" alt="Rajeel" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/team/rajeel.jpg';">
+          </div>
+          <h4 class="founder-name">Rajeel Ahmad<span class="founder-emoji"></span></h4>
+          <div class="founder-role">Co-founder</div>
+          <!-- <div class="founder-skills">
+            <span>WordPress Development</span><span>Frontend Development</span><span>Content Strategy</span>
+            <span>SEO</span><span>Digital Marketing</span><span>Google Webmaster Tools</span>
+          </div> -->
+          <div>
+            <p>“Think beyond limits. Build what doesn’t exist.”</p>
+          </div>
+          <a href="https://www.linkedin.com/in/rajeel-ahmad-217622260/" class="founder-linkedin" target="_blank"
+            rel="noopener" aria-label="Rajeel's LinkedIn profile"><svg width="14" height="14" viewBox="0 0 24 24"
+              fill="currentColor">
+              <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <rect x="6" y="10" width="2.4" height="8" fill="currentColor" />
+              <circle cx="7.2" cy="6.7" r="1.4" fill="currentColor" />
+              <path
+                d="M11.5 10h2.3v1.3c.6-.9 1.6-1.5 3-1.5 2.3 0 3.7 1.5 3.7 4.3V18h-2.4v-3.4c0-1.4-.6-2.3-1.8-2.3-1 0-1.7.7-2 1.4-.1.3-.1.6-.1 1V18h-2.4z" />
+            </svg> LinkedIn</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-copy">
+          <span class="eyebrow">About Us</span>
+          <h2 class="section-title">Building The Future With Intelligence</h2>
+          <p>Dev Sprints Lab is an AI-first software studio specializing in intelligent automation, custom software, web
+            and mobile applications, and cloud solutions.</p>
+          <p>Our mission is to help businesses grow faster with innovative technology, robust engineering, and
+            human-centered design.</p>
+          <a href="#contact" class="btn btn-primary" style="margin-top:24px;">Know More About Us <svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg></a>
+        </div>
+        <div class="about-media reveal">
+          <div class="team-illustration">
+            <div class="team-row">
+              <img src="./assets/team/legendery.jpeg" alt="" loading="lazy" style="border-radius: 20px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="wrap">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="test-grid">
+        <div class="test-card reveal">
+          <div class="quote-mark">&ldquo;</div>
+          <p>Dev Sprints Lab transformed our idea into a powerful AI solution. Their team is professional, creative and
+            super reliable.</p>
+          <div class="test-person">
+            <div>
+              <div class="n">Sarah Johnson</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="test-card reveal">
+          <div class="quote-mark">&ldquo;</div>
+          <p>Amazing experience working with them. They delivered on time and exceeded our expectations in every way.
+          </p>
+          <div class="test-person">
+            <div>
+              <div class="n">Michael Chen</div>
+              <div class="r"></div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="test-card reveal">
+          <div class="quote-mark">&ldquo;</div>
+          <p>Highly skilled team with great communication. Our go-to partner for all our development needs.</p>
+          <div class="test-person">
+
+            <div>
+              <div class="n">David Wilson</div>
+              <div class="r"></div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-header">
+        <h2 class="section-title">Let's Build Something Great Together</h2>
+        <p class="section-sub">We'd love to hear about your project.</p>
+      </div>
+
+      <div class="contact-container reveal">
+        <!-- LEFT COLUMN: Contact Info & Socials -->
+        <div class="contact-info">
+          <div class="contact-info-list">
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <path d="M22 6l-10 7L2 6" />
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Email</div>
+                <a href="mailto:info@devsprintslab.com" class="info-value">info@devsprintslab.com</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Phone</div>
+                <a href="tel:+923126389692" class="info-value">+92 312 6389692</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">WhatsApp</div>
+                <a href="https://wa.me/message/AWUBBXDS63WZE1" target="_blank" rel="noopener" class="info-value">+92 312 6389692</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <div class="info-label">Location</div>
+                <div class="info-value">Faisalabad, Pakistan</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="https://www.linkedin.com/company/devsprintslab/" aria-label="LinkedIn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.47 1.47 0 1 0 0 2.94 1.47 1.47 0 0 0 0-2.94z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61592768280536" aria-label="Facebook">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </a>
+            <!-- <a href="#" aria-label="Twitter">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
+              </svg>
+            </a> -->
+            <a href="https://github.com/devsprintslab" aria-label="GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/devsprintslab/" aria-label="Instagram">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Contact Form -->
+        <form class="contact-form" id="contactForm" ...>
+
+
+
+
+          <!-- <input type="hidden" name="access_key" value="1a79b063-b983-49c7-a620-aeaf1048d495"> -->
+
+          <!-- Custom Subject Line -->
+          <input type="hidden" name="_subject" value="New Contact Inquiry - Dev Sprints Lab">
+
+          <div class="form-group">
+            <input type="text" name="name" id="contactName" placeholder="Your Name" required>
+          </div>
+
+          <div class="form-group">
+            <input type="email" name="email" id="contactEmail" placeholder="Your Email" required>
+          </div>
+
+          <div class="form-group select-wrapper">
+            <select name="service" id="contactService" required>
+              <option value="" disabled selected>Your Service Interest</option>
+              <option value="Web Development">Web Development</option>
+              <option value="AI Agents &amp; Automation">AI Agents &amp; Automation</option>
+              <option value="SEO &amp; Marketing">SEO &amp; Marketing</option>
+              <option value="WordPress &amp; Shopify">WordPress &amp; Shopify</option>
+              <option value="Mobile Development">Mobile Development</option>
+              <option value="Backend Development">Backend Development</option>
+              <option value="Others">Others</option>
+            </select>
+            <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
+
+          <div class="form-group other-service-group" id="otherServiceGroup" style="display:none;">
+            <input type="text" name="other_service" id="otherServiceInput"
+              placeholder="Please specify your service interest">
+          </div>
+
+          <div class="form-group">
+            <textarea name="message" id="contactMessage" rows="4" placeholder="Your Message" required></textarea>
+          </div>
+
+
+
+          <button type="submit" class="btn-submit" id="contactSubmitBtn">Send Message</button>
+
+          <div id="formAlertMessage"
+            style="display:none;margin-top:14px;padding:12px 16px;border-radius:12px;font-size:13.5px;text-align:center;">
+          </div>
+        </form>
+
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="logo-mark"><img src="assets/logo.png" alt="Dev Sprints Lab logo">Dev Sprints Lab</div>
+          <p style="color:var(--grey-dim);font-size:13px;margin-top:14px;max-width:260px;">Innovating Intelligence.
+            Crafting the Future. We build intelligent solutions that help businesses grow.</p>
+        </div>
+        <div>
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#founders">Founders</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Services</h6>
+          <ul>
+            <li><a href="#services">Web Development</a></li>
+            <li><a href="#services">AI Agents</a></li>
+            <li><a href="#services">SEO &amp; Marketing</a></li>
+            <li><a href="#services">Wordpress &amp; Shopify</a></li>
+          </ul>
+        </div>
+        <!-- <div>
+          <h6>Legal</h6>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div> -->
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dev Sprints Lab. All rights reserved.</span>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/devsprintslab/" aria-label="LinkedIn">in</a>
+          <a href="https://www.facebook.com/profile.php?id=61592768280536" aria-label="Facebook">fb</a>
+          <a href="https://www.instagram.com/devsprintslab/" aria-label="Instagram">ig</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHATBOT WIDGET -->
+  <div class="chat-widget">
+    <button class="chat-launcher" id="chatLauncher" aria-label="Open chat">
+      <svg class="ic-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
+        <path
+          d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+      </svg>
+      <svg class="ic-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+      <span class="chat-ping"></span>
+    </button>
+
+    <div class="chat-panel" id="chatPanel">
+      <div class="chat-head">
+        <img src="assets/logo.png" alt="Dev Sprints Lab" loading="lazy">
+        <div>
+          <div class="chat-head-name">Dev Sprints Lab Assistant</div>
+          <div class="chat-head-status"><span class="dot-online"></span>Online now</div>
+        </div>
+        <button class="chat-close-btn" id="chatCloseBtn" aria-label="Close chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chat-body" id="chatBody">
+        <div class="chat-msg bot">Hey! 👋 I'm the <strong>Dev Sprints Lab</strong> assistant.<br>Tap a topic below or type your question:</div>
+      </div>
+
+      <div class="chat-quick" id="chatQuick">
+        <button class="chip-btn" data-q="What services do you offer?">🛠️ Services</button>
+        <button class="chip-btn" data-q="What is your tech stack?">⚙️ Tech Stack</button>
+        <button class="chip-btn" data-q="How can I get a quote?">💰 Get a Quote</button>
+        <button class="chip-btn" data-q="How do I contact you?">📬 Contact</button>
+      </div>
+
+      <form class="chat-input-row" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+        <button type="submit" aria-label="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4z" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
