@@ -329,7 +329,7 @@ mm.add("(min-width: 1025px)", () => {
         formAlertMessage.style.background = 'rgba(34, 197, 94, 0.15)';
         formAlertMessage.style.border = '1px solid rgba(34, 197, 94, 0.3)';
         formAlertMessage.style.color = '#4ade80';
-        formAlertMessage.innerHTML = '✨ <strong>Thank you!</strong> Your message has been routed to <strong>devsprintslab@gmail.com</strong>. We will get back to you shortly!';
+        formAlertMessage.innerHTML = '✨ <strong>Thank you!</strong> Your message has been routed. We will get back to you shortly!';
         contactForm.reset();
         if (otherServiceGroup) { otherServiceGroup.style.display = 'none'; otherServiceInput.required = false; }
       } finally {
@@ -483,7 +483,7 @@ The easiest way to reach us is through our <strong>Contact Form</strong> right o
 👉 <a href='#contact' style='color:var(--primary);text-decoration:underline;'>Click here to jump to the Contact Form ↓</a><br><br>
 <strong>Or reach us directly:</strong><br>
 &nbsp;&nbsp;📩 Email: <a href='mailto:info@devsprintslab.com' style='color:var(--primary);text-decoration:underline;'>info@devsprintslab.com</a><br>
-&nbsp;&nbsp;💬 WhatsApp: <a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 312 6389692</a><br>
+&nbsp;&nbsp;💬 WhatsApp: <a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 320 0780152</a><br>
 &nbsp;&nbsp;📍 Location: Faisalabad, Pakistan<br><br>
 We reply within <strong>24 hours</strong> — guaranteed! 🚀`
     },
