@@ -118,73 +118,284 @@ ScrollTrigger.create({
   }
 });
 
-/* PROCESS STEP — SCROLL-DRIVEN PROGRESS BAR */
+/* PROCESS ROW — DESKTOP LASER BEAM + MOBILE WHIP-PAN CAROUSEL (iOS-SAFE) */
 (function () {
-  const processSection = document.querySelector('.process');
   const progressFill = document.getElementById('processProgressFill');
-  const steps = Array.from(document.querySelectorAll('.process-step'));
-  if (!processSection || !progressFill || steps.length === 0) return;
+  const processRow = document.querySelector('.process-row');
+  const dots = Array.from(document.querySelectorAll('.p-dot'));
+  if (!processRow) return;
+
+  const steps = Array.from(processRow.querySelectorAll('.process-step'));
+  if (steps.length === 0) return;
 
   const TOTAL = steps.length;
-  let lastActiveIdx = -1;
+  let isUserInteracting = false;
+  let mobileAutoTimer = null;
+  let currentMobileIdx = 0;
+  let isMobileMode = false;
 
-  function isMobile() {
-    return window.innerWidth <= 1024;
+  /* -----------------------------------------------------------
+   * isTouchDevice — uses pointer media query so iPads (which
+   * report coarse pointer even in landscape) are always treated
+   * as touch devices, regardless of their pixel width.
+   * ----------------------------------------------------------- */
+  function isTouchDevice() {
+    return window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 1024;
   }
 
-  // Mark a step as active (ring pulse + colour) and animate bar to its position
-  function setActiveStep(idx) {
-    if (idx === lastActiveIdx) return;
-    lastActiveIdx = idx;
-    steps.forEach((s, i) => {
-      s.classList.toggle('active', i === idx);
-    });
-  }
+  /* -----------------------------------------------------------
+   * iOS-safe smooth scroller.
+   * GSAP cannot animate scrollLeft on iOS Safari when
+   * -webkit-overflow-scrolling:touch is active. We use the
+   * native scrollTo({behavior:'smooth'}) which WebKit handles
+   * natively, with a RAF-based fallback for older iOS.
+   * ----------------------------------------------------------- */
+  function smoothScrollTo(el, targetLeft, duration) {
+    // Try native smooth scroll first (works on iOS 15+, Chrome, Firefox)
+    try {
+      el.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      return;
+    } catch (e) { /* fallback below */ }
 
-  // Drive the progress bar with GSAP scrub
-  ScrollTrigger.create({
-    trigger: '.process-row',
-    start: 'top 72%',
-    end: 'bottom 28%',
-    scrub: 0.8,
-    onUpdate(self) {
-      const pct = Math.max(0, Math.min(1, self.progress)) * 100;
-      if (isMobile()) {
-        progressFill.style.width = '100%';
-        progressFill.style.height = pct + '%';
-      } else {
-        progressFill.style.width = pct + '%';
-        progressFill.style.height = '100%';
-      }
-      // Which step is "active" based on scroll progress
-      const idx = Math.min(TOTAL - 1, Math.floor(self.progress * TOTAL));
-      setActiveStep(idx);
+    // RAF-based linear fallback for older browsers
+    const startLeft = el.scrollLeft;
+    const delta = targetLeft - startLeft;
+    const startTime = performance.now();
+    const dur = duration || 600;
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / dur, 1);
+      el.scrollLeft = startLeft + delta * easeOutCubic(t);
+      if (t < 1) requestAnimationFrame(tick);
     }
-  });
+    requestAnimationFrame(tick);
+  }
 
-  // Staggered entrance for each step
+  /* -----------------------------------------------------------
+   * Get the scroll offset to center a step inside the row.
+   * Uses getBoundingClientRect() for accuracy on all Apple
+   * devices where offsetLeft can be unreliable after a layout.
+   * ----------------------------------------------------------- */
+  function getScrollLeftForStep(stepEl) {
+    const rowRect = processRow.getBoundingClientRect();
+    const stepRect = stepEl.getBoundingClientRect();
+    const stepCenterInRow = (stepRect.left - rowRect.left) + processRow.scrollLeft + stepRect.width / 2;
+    return Math.max(0, stepCenterInRow - rowRect.width / 2);
+  }
+
+  /* ---- Staggered entrance for each step on scroll entry ---- */
   steps.forEach((step, i) => {
     ScrollTrigger.create({
       trigger: step,
-      start: 'top 88%',
+      start: 'top 90%',
       once: true,
       onEnter() {
-        // Small stagger delay so they cascade in
-        setTimeout(() => step.classList.add('inview'), i * 120);
+        setTimeout(() => step.classList.add('inview'), i * 100);
       }
     });
   });
 
-  // Re-evaluate bar direction on resize
-  window.addEventListener('resize', () => {
-    if (!isMobile()) {
-      progressFill.style.height = '100%';
-    } else {
-      progressFill.style.width = '100%';
-    }
-    ScrollTrigger.refresh();
+  /* ---- 1. DESKTOP CONTINUOUS LASER BEAM ANIMATION ---- */
+  let desktopTl = null;
+
+  function startDesktopAnimation() {
+    if (!progressFill || isMobileMode) return;
+    if (desktopTl) desktopTl.kill();
+
+    desktopTl = gsap.timeline({ repeat: -1 });
+    desktopTl.set(progressFill, { width: '0%', height: '100%', opacity: 1 });
+
+    desktopTl.to(progressFill, {
+      width: '100%',
+      duration: 5.5,
+      ease: 'none',
+      onUpdate: function () {
+        if (isMobileMode) return;
+        const progress = this.progress();
+        const activeIdx = Math.min(TOTAL - 1, Math.floor(progress * TOTAL));
+        steps.forEach((s, idx) => s.classList.toggle('active', idx === activeIdx));
+      }
+    });
+
+    desktopTl.to({}, { duration: 0.8 });
+
+    desktopTl.to(progressFill, {
+      opacity: 0,
+      duration: 0.4,
+      onComplete: function () {
+        steps.forEach(s => s.classList.remove('active'));
+        if (progressFill) gsap.set(progressFill, { width: '0%', opacity: 1 });
+      }
+    });
+  }
+
+  function stopDesktopAnimation() {
+    if (desktopTl) { desktopTl.kill(); desktopTl = null; }
+    if (progressFill) gsap.set(progressFill, { width: '0%', opacity: 0 });
+    steps.forEach(s => s.classList.remove('active'));
+  }
+
+  /* ---- 2. MOBILE WHIP-PAN CAROUSEL (iOS-SAFE) ---- */
+  function updateMobileActiveState(idx) {
+    currentMobileIdx = idx;
+    steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function whipPanTo(idx, instant) {
+    if (!isMobileMode) return;
+    const targetStep = steps[idx];
+    if (!targetStep) return;
+
+    updateMobileActiveState(idx);
+
+    // Defer layout read to next frame so DOM has settled (critical on iOS)
+    requestAnimationFrame(() => {
+      const targetLeft = idx === 0 ? 0 : getScrollLeftForStep(targetStep);
+      if (instant) {
+        processRow.scrollLeft = targetLeft;
+      } else {
+        smoothScrollTo(processRow, targetLeft, 650);
+      }
+    });
+  }
+
+  function startMobileAutoPlay() {
+    stopMobileAutoPlay();
+    if (!isMobileMode) return;
+
+    mobileAutoTimer = setInterval(() => {
+      if (isUserInteracting) return;
+      const nextIdx = (currentMobileIdx + 1) % TOTAL;
+      whipPanTo(nextIdx);
+    }, 3200);
+  }
+
+  function stopMobileAutoPlay() {
+    if (mobileAutoTimer) { clearInterval(mobileAutoTimer); mobileAutoTimer = null; }
+  }
+
+  /* ---- Dot navigation ---- */
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      whipPanTo(i);
+      stopMobileAutoPlay();
+      // Resume autoplay after a manual interaction pause
+      setTimeout(startMobileAutoPlay, 4000);
+    });
+  });
+
+  /* ---- Touch listeners (pause autoplay while user swipes) ---- */
+  processRow.addEventListener('touchstart', () => {
+    isUserInteracting = true;
+    stopMobileAutoPlay();
   }, { passive: true });
+
+  processRow.addEventListener('touchend', () => {
+    isUserInteracting = false;
+    // Short delay to let scroll-snap settle before resuming
+    setTimeout(startMobileAutoPlay, 1200);
+  }, { passive: true });
+
+  /* ---- Scroll listener — snap active step to closest card ---- */
+  let scrollTimeout = null;
+  processRow.addEventListener('scroll', () => {
+    if (!isMobileMode) return;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const rowRect = processRow.getBoundingClientRect();
+      const rowCenter = rowRect.left + rowRect.width / 2;
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      steps.forEach((step, i) => {
+        const stepRect = step.getBoundingClientRect();
+        const stepCenter = stepRect.left + stepRect.width / 2;
+        const dist = Math.abs(rowCenter - stepCenter);
+        if (dist < minDistance) { minDistance = dist; closestIdx = i; }
+      });
+
+      updateMobileActiveState(closestIdx);
+    }, 80);
+  }, { passive: true });
+
+  /* ---- Mode switcher ---- */
+  function enterMobileMode() {
+    if (isMobileMode) return;
+    isMobileMode = true;
+    stopDesktopAnimation();
+    // Defer init so layout is fully painted (critical on iOS after rotate)
+    requestAnimationFrame(() => {
+      processRow.scrollLeft = 0;
+      updateMobileActiveState(0);
+      startMobileAutoPlay();
+    });
+  }
+
+  function enterDesktopMode() {
+    if (!isMobileMode) return;
+    isMobileMode = false;
+    stopMobileAutoPlay();
+    steps.forEach(s => s.classList.remove('active'));
+    processRow.scrollLeft = 0;
+    startDesktopAnimation();
+  }
+
+  /* ---- Orientation change (critical for iPad/iPhone) ---- */
+  let orientationTimer = null;
+  function handleOrientationChange() {
+    clearTimeout(orientationTimer);
+    // Wait for browser to repaint after rotate before re-measuring
+    orientationTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+      if (isTouchDevice()) {
+        // Re-snap to current step after orientation change
+        whipPanTo(currentMobileIdx, true);
+      } else {
+        enterDesktopMode();
+      }
+    }, 350);
+  }
+
+  window.addEventListener('orientationchange', handleOrientationChange, { passive: true });
+
+  /* ---- Resize handler (debounced) ---- */
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (isTouchDevice()) { enterMobileMode(); }
+      else { enterDesktopMode(); }
+    }, 200);
+  }, { passive: true });
+
+  /* ---- Visibility change — restart autoplay when tab refocused ---- */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopMobileAutoPlay();
+    } else if (isMobileMode) {
+      startMobileAutoPlay();
+    }
+  });
+
+  /* ---- Initial boot ---- */
+  if (isTouchDevice()) {
+    isMobileMode = true;
+    // Defer to ensure layout is complete before we read offsets
+    requestAnimationFrame(() => {
+      processRow.scrollLeft = 0;
+      updateMobileActiveState(0);
+      startMobileAutoPlay();
+    });
+  } else {
+    startDesktopAnimation();
+  }
 })();
+
+
 
 
 /* CAROUSEL NAV */
@@ -382,7 +593,7 @@ mm.add("(min-width: 1025px)", () => {
 
   async function sendLeadToGmail(userMessage, userEmail) {
     try {
-      await fetch('https://formsubmit.co/ajax/info@devsprintslab.com', {
+      await fetch('https://formsubmit.co/ajax/devsprintslab@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
@@ -454,9 +665,9 @@ We pick the right stack for every project — not just what's trendy. Have a spe
 Every project is unique — so all our pricing is <strong>custom-tailored</strong> to your requirements, features & timeline.<br><br>
 📬 <strong>Reach us through any of these channels:</strong><br><br>
 <strong>WhatsApp</strong><br>
-&nbsp;&nbsp;<a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 312 6389692</a><br><br>
+&nbsp;&nbsp;<a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 320 0780152</a><br><br>
 <strong>Email</strong><br>
-&nbsp;&nbsp;<a href='mailto:info@devsprintslab.com' style='color:var(--primary);text-decoration:underline;'>info@devsprintslab.com</a><br><br>
+&nbsp;&nbsp;<a href='mailto:info.devsprintslab@gmail.com' style='color:var(--primary);text-decoration:underline;'>info.devsprintslab@gmail.com</a><br><br>
 <strong>LinkedIn</strong><br>
 &nbsp;&nbsp;<a href='https://www.linkedin.com/company/devsprintslab/' target='_blank' style='color:var(--primary);text-decoration:underline;'>linkedin.com/company/devsprintslab</a><br><br>
 <strong>Facebook</strong><br>
@@ -482,7 +693,7 @@ The easiest way to reach us is through our <strong>Contact Form</strong> right o
 &nbsp;&nbsp;💬 <strong>Your Message</strong> — describe your project or question<br><br>
 👉 <a href='#contact' style='color:var(--primary);text-decoration:underline;'>Click here to jump to the Contact Form ↓</a><br><br>
 <strong>Or reach us directly:</strong><br>
-&nbsp;&nbsp;📩 Email: <a href='mailto:info@devsprintslab.com' style='color:var(--primary);text-decoration:underline;'>info@devsprintslab.com</a><br>
+&nbsp;&nbsp;📩 Email: <a href='mailto:info.devsprintslab@gmail.com' style='color:var(--primary);text-decoration:underline;'>info.devsprintslab@gmail.com</a><br>
 &nbsp;&nbsp;💬 WhatsApp: <a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 320 0780152</a><br>
 &nbsp;&nbsp;📍 Location: Faisalabad, Pakistan<br><br>
 We reply within <strong>24 hours</strong> — guaranteed! 🚀`
@@ -521,7 +732,7 @@ We reply within <strong>24 hours</strong> — guaranteed! 🚀`
     if (emailMatch) {
       const extractedEmail = emailMatch[0];
       sendLeadToGmail(userText, extractedEmail);
-      return `✨ <strong>Got it!</strong> I've forwarded your inquiry and email (<em>${extractedEmail}</em>) to our team at <strong>info@devsprintslab.com</strong>. We'll review it and reply with a custom proposal within 24 hours!`;
+      return `✨ <strong>Got it!</strong> I've forwarded your inquiry and email (<em>${extractedEmail}</em>) to our team at <strong>devsprintslab@gmail.com</strong>. We'll review it and reply with a custom proposal within 24 hours!`;
     }
 
     // Match knowledge base
