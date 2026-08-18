@@ -727,6 +727,42 @@ We reply within <strong>24 hours</strong> — guaranteed! 🚀`
   function processChatbotLogic(userText) {
     const msg = userText.toLowerCase().trim();
 
+    // Check if the user is inquiring about or wants a website, agent, marketing services, etc.
+    const serviceKeywords = [
+      'website', 'web site', 'webpage', 'webdev', 'web dev', 'wordpress', 'shopify', 'woocommerce', 'ecommerce', 'e-commerce', 'online store', 'store',
+      'agent', 'chatbot', 'chat bot', 'ai bot', 'automation', 'n8n', 'langgraph',
+      'marketing', 'seo', 'leads', 'social media', 'google rank',
+      'app', 'mobile app', 'flutter', 'ios app', 'android app',
+      'software', 'backend', 'frontend', 'develop', 'build', 'design'
+    ];
+
+    const intentKeywords = [
+      'want', 'need', 'looking for', 'hire', 'build', 'develop', 'create', 'make', 'get', 'order', 'require', 'interested in', 'setup', 'services'
+    ];
+
+    const hasServiceKeyword = serviceKeywords.some(kw => msg.includes(kw));
+    const hasIntentKeyword = intentKeywords.some(intent => msg.includes(intent));
+
+    if (hasServiceKeyword && (hasIntentKeyword || msg.length > 12)) {
+      // Send lead to email in background
+      const emailMatch = userText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      const extractedEmail = emailMatch ? emailMatch[0] : '';
+      sendLeadToGmail(userText, extractedEmail);
+
+      return `🚀 <strong>We'd love to help you build your project!</strong><br><br>
+To get started, please <strong>fill out our Contact Form</strong> on this page so our engineering leads can review your details and prepare a custom proposal.<br><br>
+👉 <a href='#contact' style='color:var(--primary);text-decoration:underline;'>Click here to fill out the Contact Form ↓</a><br><br>
+<strong>Or contact us directly here:</strong><br>
+• 📞 <strong>Phone:</strong> <a href='tel:+923200780152' style='color:var(--primary);text-decoration:underline;'>+92 320 0780152</a><br>
+• 💬 <strong>WhatsApp:</strong> <a href='https://wa.me/message/AWUBBXDS63WZE1' target='_blank' style='color:var(--primary);text-decoration:underline;'>+92 320 0780152</a><br>
+• 📩 <strong>Email:</strong> <a href='mailto:info.devsprintslab@gmail.com' style='color:var(--primary);text-decoration:underline;'>info.devsprintslab@gmail.com</a><br><br>
+<strong>Connect with us on Social Media:</strong><br>
+• 💼 <a href='https://www.linkedin.com/company/devsprintslab/' target='_blank' style='color:var(--primary);text-decoration:underline;'>LinkedIn</a><br>
+• 👥 <a href='https://www.facebook.com/profile.php?id=61592768280536' target='_blank' style='color:var(--primary);text-decoration:underline;'>Facebook</a><br>
+• 📸 <a href='https://www.instagram.com/devsprintslab/' target='_blank' style='color:var(--primary);text-decoration:underline;'>Instagram</a><br>
+• 💻 <a href='https://github.com/devsprintslab' target='_blank' style='color:var(--primary);text-decoration:underline;'>GitHub</a>`;
+    }
+
     // Email capture — send lead and confirm
     const emailMatch = userText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
     if (emailMatch) {
