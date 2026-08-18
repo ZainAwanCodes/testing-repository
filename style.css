@@ -91,7 +91,7 @@ h4 {
 }
 
 .section-title {
-  font-size: clamp(32px, 4vw, 48px);
+  font-size: clamp(16px, 8vw, 24px);
   line-height: 1.05;
   margin-top: 14px;
 }
@@ -2844,7 +2844,7 @@ video {
   }
 
   .section-title {
-    font-size: clamp(26px, 5.5vw, 36px);
+    font-size: clamp(30px, 10vw, 36px);
   }
 
   .tech-grid {
@@ -2984,10 +2984,6 @@ video {
     margin-top: 16px;
   }
 
-  .section-title {
-    font-size: clamp(22px, 7vw, 30px);
-  }
-
   .chat-widget {
     bottom: 16px;
     right: 16px;
@@ -3028,10 +3024,6 @@ video {
     font-size: 10.5px;
   }
 
-  .section-title {
-    font-size: 20px;
-  }
-
   .btn {
     padding: 12px 18px;
     font-size: 12.5px;
@@ -3061,18 +3053,22 @@ video {
     width: 84px;
     height: 84px;
   }
+
   .process-step .ring svg {
     width: 28px;
     height: 28px;
   }
+
   .process-step h5 {
     font-size: 17px;
     margin-top: 20px;
   }
+
   .process-step p {
     font-size: 13px;
     max-width: 280px;
   }
+
   .process-step .step-number {
     font-size: 12px;
   }
@@ -3084,14 +3080,17 @@ video {
     width: 90px;
     height: 90px;
   }
+
   .process-step .ring svg {
     width: 30px;
     height: 30px;
   }
+
   .process-step h5 {
     font-size: 18px;
     margin-top: 22px;
   }
+
   .process-step p {
     font-size: 13.5px;
     max-width: 320px;
@@ -3104,27 +3103,33 @@ video {
     width: 96px;
     height: 96px;
   }
+
   .process-step .ring svg {
     width: 32px;
     height: 32px;
   }
+
   .process-step h5 {
     font-size: 19px;
     margin-top: 22px;
     margin-bottom: 10px;
   }
+
   .process-step p {
     font-size: 14px;
     max-width: 380px;
   }
+
   .process-step .step-number {
     font-size: 13px;
   }
+
   /* Bigger dots on iPad */
   .p-dot::after {
     width: 10px;
     height: 10px;
   }
+
   .p-dot.active::after {
     width: 28px;
   }
@@ -3143,6 +3148,7 @@ video {
     touch-action: auto;
     padding: 10px 0;
   }
+
   .process-step {
     flex: 1;
     opacity: 1;
@@ -3151,12 +3157,15 @@ video {
     padding: 0;
     transition: opacity .55s var(--ease), transform .55s var(--ease);
   }
+
   .process-step:not(:last-child)::before {
     display: none;
   }
+
   .process-progress-track {
     display: block;
   }
+
   .process-mobile-dots {
     display: none;
   }
