@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights & Articles — Dev Sprints Lab</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* PAGE CUSTOM STYLING */
+    .blog-section {
+      padding: var(--sp-7) 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--sp-4);
+      margin-top: var(--sp-6);
+    }
+
+    .blog-card {
+      background: var(--panel);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: var(--sp-4);
+      transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -10px rgba(255, 45, 85, 0.18);
+      border-color: rgba(255, 45, 85, 0.35);
+    }
+
+    .blog-img-box {
+      background: linear-gradient(135deg, var(--primary-dim), rgba(255, 45, 85, 0.1));
+      border-radius: 12px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: var(--sp-3);
+      overflow: hidden;
+    }
+
+    .blog-img-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(5, 5, 5, 0.2));
+    }
+
+    .blog-img-box svg {
+      width: 48px;
+      height: 48px;
+      color: var(--primary);
+      filter: drop-shadow(0 0 8px rgba(255, 45, 85, 0.6));
+      z-index: 1;
+    }
+
+    .blog-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--sp-2);
+    }
+
+    .blog-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(255, 45, 85, 0.1);
+      padding: 4px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .blog-meta {
+      font-size: 13px;
+      color: var(--grey);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .blog-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .blog-title {
+      font-size: 20px;
+      line-height: 1.35;
+      color: var(--white);
+      margin-bottom: 12px;
+      transition: color 0.3s;
+    }
+
+    .blog-card:hover .blog-title {
+      color: var(--primary);
+    }
+
+    .blog-excerpt {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--grey);
+      margin-bottom: var(--sp-4);
+      flex-grow: 1;
+    }
+
+    .blog-read-btn {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s;
+      margin-top: auto;
+    }
+
+    .blog-read-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease);
+    }
+
+    .blog-card:hover .blog-read-btn {
+      color: var(--primary);
+    }
+
+    .blog-card:hover .blog-read-btn svg {
+      transform: translateX(4px);
+    }
+
+    /* Adjust navbar links active states */
+    .navbar {
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom: 1px solid var(--glass-border);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="logo-mark">
+      <img src="assets/logo.png" alt="Dev Sprints Lab logo">
+      <a href="index.html">Dev Sprints Lab</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#techstack">Technologies</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burgerBtn" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuCloseBtn" aria-label="Close navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+    <ul class="mobile-menu-links">
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#techstack">Technologies</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero" style="min-height: 55vh; padding-top: 140px; padding-bottom: 40px; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div class="aurora">
+      <span></span>
+      <span></span>
+    </div>
+    <div class="wrap">
+      <span class="eyebrow">Insights & Industry Trends</span>
+      <h1 class="hero-heading" style="margin-top: 16px;">Dev Sprints <span class="accent">Blogs</span></h1>
+      <p class="hero-desc" style="max-width: 620px; margin: 20px auto 0;">
+        Explore our latest insights, engineered findings, and modern digital strategies for Web Development, AI Automation, and organic SEO growth.
+      </p>
+    </div>
+  </section>
+
+  <!-- BLOG LISTINGS -->
+  
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="logo-mark"><img src="assets/logo.png" alt="Dev Sprints Lab logo">Dev Sprints Lab</div>
+          <p style="color:var(--grey-dim);font-size:13px;margin-top:14px;max-width:260px;">Innovating Intelligence. Crafting the Future. We build intelligent solutions that help businesses grow.</p>
+        </div>
+        <div>
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html#hero">Home</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="index.html#techstack">Technologies</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Services</h6>
+          <ul>
+            <li><a href="index.html#services">Web Development</a></li>
+            <li><a href="index.html#services">AI Agents</a></li>
+            <li><a href="index.html#services">SEO &amp; Marketing</a></li>
+            <li><a href="index.html#services">Wordpress &amp; Shopify</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dev Sprints Lab. All rights reserved.</span>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/devsprintslab/" aria-label="LinkedIn"> 
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.47 1.47 0 1 0 0 2.94 1.47 1.47 0 0 0 0-2.94z" />
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61592768280536" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/devsprintslab/" aria-label="Instagram"> 
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

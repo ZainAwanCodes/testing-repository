@@ -4,10 +4,12 @@ gsap.registerPlugin(ScrollTrigger);
 const navbar = document.getElementById('navbar');
 let isScrolled = false;
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY > 40;
-  if (scrolled !== isScrolled) {
-    isScrolled = scrolled;
-    navbar.classList.toggle('scrolled', isScrolled);
+  if (navbar) {
+    const scrolled = window.scrollY > 40;
+    if (scrolled !== isScrolled) {
+      isScrolled = scrolled;
+      navbar.classList.toggle('scrolled', isScrolled);
+    }
   }
 }, { passive: true });
 
@@ -16,28 +18,35 @@ const burgerBtn = document.getElementById('burgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileMenuCloseBtn = document.getElementById('mobileMenuCloseBtn');
 function toggleMobileMenu(forceClose) {
+  if (!mobileMenu || !burgerBtn) return;
   const shouldOpen = forceClose === true ? false : !mobileMenu.classList.contains('open');
   mobileMenu.classList.toggle('open', shouldOpen);
   burgerBtn.classList.toggle('active', shouldOpen);
   document.body.classList.toggle('body-locked', shouldOpen);
 }
-burgerBtn.addEventListener('click', function () { toggleMobileMenu(); });
+if (burgerBtn) {
+  burgerBtn.addEventListener('click', function () { toggleMobileMenu(); });
+}
 if (mobileMenuCloseBtn) {
   mobileMenuCloseBtn.addEventListener('click', function () { toggleMobileMenu(true); });
 }
-mobileMenu.querySelectorAll('a').forEach(function (link) {
-  link.addEventListener('click', function () { toggleMobileMenu(true); });
-});
+if (mobileMenu) {
+  mobileMenu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () { toggleMobileMenu(true); });
+  });
+}
 
 /* PARTICLES */
 const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
 let particles = [];
 function resizeCanvas() {
+  if (!canvas) return;
   canvas.width = canvas.offsetParent ? canvas.parentElement.offsetWidth : window.innerWidth;
   canvas.height = window.innerHeight;
 }
 function initParticles() {
+  if (!canvas) return;
   resizeCanvas();
   particles = Array.from({ length: 70 }, () => ({
     x: Math.random() * canvas.width, y: Math.random() * canvas.height,
@@ -46,6 +55,7 @@ function initParticles() {
   }));
 }
 function animateParticles() {
+  if (!canvas || !ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach(p => {
     p.x += p.vx; p.y += p.vy;
@@ -58,7 +68,9 @@ function animateParticles() {
   });
   requestAnimationFrame(animateParticles);
 }
-initParticles(); animateParticles();
+if (canvas) {
+  initParticles(); animateParticles();
+}
 
 let resizeTimeout;
 window.addEventListener('resize', () => {
@@ -561,14 +573,18 @@ mm.add("(min-width: 1025px)", () => {
   const quick = document.getElementById('chatQuick');
   let opened = false;
 
-  function toggleChat(force) {
-    opened = typeof force === 'boolean' ? force : !opened;
-    launcher.classList.toggle('open', opened);
-    panel.classList.toggle('open', opened);
-    if (opened) setTimeout(() => input.focus(), 300);
-  }
-  launcher.addEventListener('click', () => toggleChat());
-  document.getElementById('chatCloseBtn').addEventListener('click', () => toggleChat(false));
+  if (launcher && panel && body && form && input && quick) {
+    function toggleChat(force) {
+      opened = typeof force === 'boolean' ? force : !opened;
+      launcher.classList.toggle('open', opened);
+      panel.classList.toggle('open', opened);
+      if (opened) setTimeout(() => input.focus(), 300);
+    }
+    launcher.addEventListener('click', () => toggleChat());
+    const closeBtn = document.getElementById('chatCloseBtn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => toggleChat(false));
+    }
 
   function addMessage(text, sender) {
     const el = document.createElement('div');
@@ -795,15 +811,16 @@ To get started, please <strong>fill out our Contact Form</strong> on this page s
     }, 500 + Math.random() * 300);
   }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    handleUserMessage(input.value);
-  });
-  quick.addEventListener('click', (e) => {
-    const btn = e.target.closest('.chip-btn');
-    if (!btn) return;
-    handleUserMessage(btn.dataset.q);
-  });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleUserMessage(input.value);
+    });
+    quick.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip-btn');
+      if (!btn) return;
+      handleUserMessage(btn.dataset.q);
+    });
+  }
 })();
 // FIX: ID ko 'form' se badal kar 'contactForm' kar diya hai
 const form = document.getElementById('contactForm');
