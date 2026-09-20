@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Next.js 15 Architecture: Server Actions vs Microservices | DevSprints Lab
+  </title>
+
+  <meta
+    name="description"
+    content="Expert guide on Next.js 15 architecture. Compare Server Actions vs Microservices for enterprise scaling and startup speed. Build with DevSprintsLab."
+  >
+
+  <meta
+    name="keywords"
+    content="Next.js 15, Full-Stack Architecture, Web Development, Microservices"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    name="author"
+    content="DevSprints Lab Team"
+  >
+
+  <link
+    rel="canonical"
+    href="https://devsprintslab.com/blogs/nextjs-15-architecture-server-actions-vs-microservices.html"
+  >
+
+  <!-- FAVICON / LOGO -->
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://devsprintslab.com/assets/logo.png"
+  >
+
+  <!-- OPEN GRAPH -->
+
+  <meta
+    property="og:type"
+    content="article"
+  >
+
+  <meta
+    property="og:site_name"
+    content="DevSprints Lab"
+  >
+
+  <meta
+    property="og:title"
+    content="Next.js 15 Architecture: Server Actions vs Microservices"
+  >
+
+  <meta
+    property="og:description"
+    content="Expert guide on Next.js 15 architecture. Compare Server Actions vs Microservices for enterprise scaling and startup speed. Build with DevSprintsLab."
+  >
+
+  <meta
+    property="og:url"
+    content="https://devsprintslab.com/blogs/nextjs-15-architecture-server-actions-vs-microservices.html"
+  >
+
+  <meta
+    property="og:image"
+    content="https://raw.githubusercontent.com/ZainAwanCodes/testing-repository/main/images/nextjs-15-architecture-server-actions-vs-microservices.png"
+  >
+
+  <meta
+    property="og:image:alt"
+    content="Next.js 15 Architecture: Server Actions vs Microservices - DevSprintsLab"
+  >
+
+  <!-- TWITTER -->
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Next.js 15 Architecture: Server Actions vs Microservices"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Expert guide on Next.js 15 architecture. Compare Server Actions vs Microservices for enterprise scaling and startup speed. Build with DevSprintsLab."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://raw.githubusercontent.com/ZainAwanCodes/testing-repository/main/images/nextjs-15-architecture-server-actions-vs-microservices.png"
+  >
+
+  <!-- FONTS -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://devsprintslab.com"},{"@type":"ListItem","position":2,"name":"Blogs","item":"https://devsprintslab.com/blogs.html"},{"@type":"ListItem","position":3,"name":"Next.js 15 Architecture: Server Actions vs Microservices","item":"https://devsprintslab.com/blogs/nextjs-15-architecture-server-actions-vs-microservices.html"}]}
+    </script>
+  
+
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Article","headline":"Next.js 15 Architecture: Server Actions vs Microservices","description":"Expert guide on Next.js 15 architecture. Compare Server Actions vs Microservices for enterprise scaling and startup speed. Build with DevSprintsLab.","author":{"@type":"Organization","name":"DevSprints Lab Team"},"publisher":{"@type":"Organization","name":"DevSprints Lab","url":"https://devsprintslab.com","logo":{"@type":"ImageObject","url":"https://devsprintslab.com/assets/logo.png"}},"datePublished":"2026-09-20T12:34:55.417Z","dateModified":"2026-09-20T12:34:55.417Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://devsprintslab.com/blogs/nextjs-15-architecture-server-actions-vs-microservices.html"},"image":"https://raw.githubusercontent.com/ZainAwanCodes/testing-repository/main/images/nextjs-15-architecture-server-actions-vs-microservices.png","keywords":"Next.js 15, Full-Stack Architecture, Web Development, Microservices"}
+    </script>
+  
+
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are Next.js 15 Server Actions secure for production?","acceptedAnswer":{"@type":"Answer","text":"Yes, Server Actions are secure if implemented with proper authorization checks and input validation (e.g., using Zod). They run exclusively on the server, meaning the logic is never exposed to the client-side bundle."}},{"@type":"Question","name":"When should I choose a traditional backend over Next.js?","acceptedAnswer":{"@type":"Answer","text":"A traditional backend (like Python/FastAPI or Go) is preferred when you have specialized compute needs, such as AI model orchestration, heavy data science workloads, or when you need to support multiple client types (mobile, web, IoT) with a single API."}},{"@type":"Question","name":"How does Next.js 15 improve performance for enterprise apps?","acceptedAnswer":{"@type":"Answer","text":"Next.js 15 introduces improved caching heuristics, partial pre-rendering (PPR), and optimized streaming. These features allow enterprise apps to deliver static-like speeds while maintaining dynamic, personalized content."}}]}
+    </script>
+  
+
+  <!-- ======================================================
+       CSS
+       ====================================================== -->
+
+  <style>
+
+    :root {
+
+      --bg: #050505;
+
+      --surface: #0b0b0d;
+
+      --surface-2: #111114;
+
+      --border: rgba(255,255,255,.10);
+
+      --text: #ffffff;
+
+      --muted: #a0a0a0;
+
+      --muted-2: #707070;
+
+      --red: #ff294f;
+
+      --red-dark: #8b0000;
+
+      --max: 1240px;
+
+      --content: 820px;
+
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html {
+
+      scroll-behavior: smooth;
+
+      background: var(--bg);
+
+    }
+
+
+    body {
+
+      margin: 0;
+
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(255,41,79,.10),
+          transparent 34rem
+        ),
+        var(--bg);
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      line-height: 1.8;
+
+    }
+
+
+    a {
+
+      color: inherit;
+
+      text-decoration: none;
+
+    }
+
+
+    img {
+
+      max-width: 100%;
+
+    }
+
+
+    ::selection {
+
+      background: rgba(255,41,79,.35);
+
+      color: #fff;
+
+    }
+
+
+    /* ======================================================
+       BACKGROUND
+       ====================================================== */
+
+    .grid-bg {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: -2;
+
+      pointer-events: none;
+
+      opacity: .20;
+
+      background-image:
+
+        linear-gradient(
+          rgba(255,255,255,.035) 1px,
+          transparent 1px
+        ),
+
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.035) 1px,
+          transparent 1px
+        );
+
+      background-size: 56px 56px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 78%
+        );
+
+    }
+
+
+    .glow {
+
+      position: fixed;
+
+      width: 420px;
+
+      height: 420px;
+
+      border-radius: 50%;
+
+      background: rgba(255,41,79,.08);
+
+      filter: blur(100px);
+
+      top: 12%;
+
+      right: -180px;
+
+      z-index: -1;
+
+      pointer-events: none;
+
+    }
+
+
+    /* ======================================================
+       HEADER
+       MATCH DEV SPRINTS LAB MAIN WEBSITE
+       ====================================================== */
+
+    .site-header {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      width: 100%;
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+      background:
+        rgba(5,5,5,.88);
+
+      backdrop-filter: blur(18px);
+
+      -webkit-backdrop-filter: blur(18px);
+
+    }
+
+
+    .header-container {
+
+      width:
+        min(
+          var(--max),
+          calc(100% - 40px)
+        );
+
+      min-height: 78px;
+
+      margin: 0 auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+
+    }
+
+
+    /* ======================================================
+       REAL DEV SPRINTS LAB LOGO
+       ====================================================== */
+
+    .site-logo {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 20px;
+
+      font-weight: 700;
+
+      letter-spacing: -.035em;
+
+      white-space: nowrap;
+
+    }
+
+
+    .site-logo img {
+
+      width: 36px;
+
+      height: 36px;
+
+      display: block;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 0 10px
+          rgba(255,41,79,.30)
+        );
+
+    }
+
+
+    .logo-text {
+
+      color: #fff;
+
+    }
+
+
+    .logo-text span {
+
+      color: var(--red);
+
+    }
+
+
+    /* ======================================================
+       NAVIGATION
+       ====================================================== */
+
+    .main-navigation {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 38px;
+
+    }
+
+
+    .main-navigation a {
+
+      color: #a9a9a9;
+
+      font-size: 14px;
+
+      font-weight: 500;
+
+      transition:
+        color .2s ease,
+        transform .2s ease;
+
+    }
+
+
+    .main-navigation a:hover {
+
+      color: #fff;
+
+      transform: translateY(-1px);
+
+    }
+
+
+    /* ======================================================
+       MOBILE MENU
+       ====================================================== */
+
+    .mobile-menu {
+
+      display: none;
+
+      width: 42px;
+
+      height: 42px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.03);
+
+      color: #fff;
+
+      cursor: pointer;
+
+      font-size: 20px;
+
+    }
+
+
+    /* ======================================================
+       HERO
+       ====================================================== */
+
+    .hero {
+
+      width:
+        min(
+          var(--max),
+          calc(100% - 40px)
+        );
+
+      margin: 0 auto;
+
+      padding: 100px 0 70px;
+
+      position: relative;
+
+    }
+
+
+    .hero::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 600px;
+
+      height: 280px;
+
+      left: 50%;
+
+      top: 20px;
+
+      transform: translateX(-50%);
+
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(255,41,79,.14),
+          transparent 68%
+        );
+
+      pointer-events: none;
+
+    }
+
+
+    .hero-inner {
+
+      max-width: 940px;
+
+      margin: auto;
+
+      text-align: center;
+
+      position: relative;
+
+    }
+
+
+    .eyebrow {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      padding: 7px 13px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 999px;
+
+      color: #c7c7c7;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      letter-spacing: .09em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .eyebrow::before {
+
+      content: "";
+
+      width: 6px;
+
+      height: 6px;
+
+      background: var(--red);
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 12px
+        var(--red);
+
+    }
+
+
+    h1,
+    h2,
+    h3 {
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      letter-spacing: -.045em;
+
+    }
+
+
+    .hero-description {
+
+      max-width: 720px;
+
+      margin: 0 auto;
+
+      color: var(--muted);
+
+      font-size: 17px;
+
+    }
+
+
+    .hero-meta {
+
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 10px 22px;
+
+      margin-top: 30px;
+
+      color: var(--muted-2);
+
+      font-size: 13px;
+
+    }
+
+
+    .hero-meta strong {
+
+      color: #d7d7d7;
+
+    }
+
+
+    .hero-image-wrap {
+
+      max-width: 900px;
+
+      margin: 40px auto 0;
+
+      border-radius: 20px;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--border);
+
+      box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.35);
+
+    }
+
+
+    .hero-image-wrap img {
+
+      width: 100%;
+
+      height: auto;
+
+      display: block;
+
+    }
+
+
+    /* ======================================================
+       FEATURED IMAGE + TITLE INSIDE ARTICLE CONTENT
+       ====================================================== */
+
+    .content-featured-image {
+
+      margin: 0 0 42px;
+
+    }
+
+
+    .content-featured-image-wrap {
+
+      width: 100%;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 18px;
+
+      background: #080808;
+
+      box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.35);
+
+    }
+
+
+    .content-featured-image-wrap img {
+
+      width: 100%;
+
+      height: auto;
+
+      aspect-ratio: 16 / 9;
+
+      object-fit: cover;
+
+      display: block;
+
+    }
+
+
+    .content-featured-title {
+
+      margin: 28px 0 0;
+
+      padding: 0;
+
+      color: #fff;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size:
+        clamp(
+          30px,
+          4vw,
+          46px
+        );
+
+      line-height: 1.12;
+
+      letter-spacing: -.045em;
+
+      font-weight: 700;
+
+    }
+
+
+    /* ======================================================
+       MAIN BLOG CONTENT
+       ====================================================== */
+
+    .page-layout {
+
+      width:
+        min(
+          var(--max),
+          calc(100% - 40px)
+        );
+
+      margin:
+        0 auto 110px;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0,var(--content))
+        250px;
+
+      justify-content: center;
+
+      gap: 64px;
+
+      align-items: start;
+
+    }
+
+
+    /* ======================================================
+       ARTICLE
+       ====================================================== */
+
+    .article-card {
+
+      min-width: 0;
+
+      padding: 44px 48px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.012)
+        );
+
+      box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.35);
+
+    }
+
+
+    .article {
+
+      font-size: 17px;
+
+      color: #d0d0d0;
+
+    }
+
+
+    .article > p:first-child {
+
+      color: #f2f2f2;
+
+      font-size: 20px;
+
+      line-height: 1.75;
+
+    }
+
+
+    .article p {
+
+      margin: 0 0 25px;
+
+    }
+
+
+    .article h1 {
+
+      color: #fff;
+
+      font-size: 38px;
+
+      line-height: 1.2;
+
+      margin: 40px 0 20px;
+
+    }
+
+
+    .article h2 {
+
+      font-size: 30px;
+
+      line-height: 1.2;
+
+      color: #fff;
+
+      margin: 58px 0 18px;
+
+      padding-top: 6px;
+
+    }
+
+
+    .article h3 {
+
+      font-size: 23px;
+
+      color: #fff;
+
+      margin: 48px 0 15px;
+
+    }
+
+
+    .article strong {
+
+      color: #fff;
+
+    }
+
+
+    .article em {
+
+      color: #ddd;
+
+    }
+
+
+    .article ul,
+    .article ol {
+
+      margin:
+        0 0 24px;
+
+      padding-left: 24px;
+
+    }
+
+
+    .article li {
+
+      margin-bottom: 8px;
+
+    }
+
+
+    /* ======================================================
+       SIDEBAR
+       ====================================================== */
+
+    .sidebar {
+
+      position: sticky;
+
+      top: 100px;
+
+    }
+
+
+    .side-card {
+
+      padding: 20px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255,255,255,.025);
+
+    }
+
+
+    .side-title {
+
+      margin: 0 0 14px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      text-transform: uppercase;
+
+      letter-spacing: .1em;
+
+      color: #fff;
+
+    }
+
+
+    .toc {
+
+      display: grid;
+
+      gap: 4px;
+
+    }
+
+
+    .toc a {
+
+      padding: 8px 9px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.45;
+
+      border-radius: 8px;
+
+      transition: all .2s;
+
+    }
+
+
+    .toc a:hover {
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.04);
+
+    }
+
+
+    .side-divider {
+
+      height: 1px;
+
+      background: var(--border);
+
+      margin: 20px 0;
+
+    }
+
+
+    .tag-list {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+    }
+
+
+    .tag {
+
+      padding: 6px 10px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 999px;
+
+      color: #bdbdbd;
+
+      background:
+        rgba(255,255,255,.025);
+
+      font-size: 11px;
+
+    }
+
+
+    /* ======================================================
+       FAQ
+       ====================================================== */
+
+    .faq-section {
+
+      margin-top: 50px;
+
+      padding-top: 35px;
+
+      border-top:
+        1px solid
+        var(--border);
+
+    }
+
+
+    .section-label {
+
+      color: var(--red);
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      letter-spacing: .13em;
+
+      text-transform: uppercase;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .faq-section > h2 {
+
+      margin-top: 0;
+
+      color: #fff;
+
+      font-size: 30px;
+
+    }
+
+
+    .faq-list {
+
+      display: grid;
+
+      gap: 16px;
+
+    }
+
+
+    .faq-item {
+
+      padding: 20px;
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius: 14px;
+
+      background: var(--surface-2);
+
+    }
+
+
+    .faq-item h3 {
+
+      font-size: 17px;
+
+      margin: 0 0 8px;
+
+      color: #fff;
+
+    }
+
+
+    .faq-item p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+
+    }
+
+
+    /* ======================================================
+       FOOTER
+       SAME BRANDING AS DEV SPRINTS LAB MAIN WEBSITE
+       ====================================================== */
+
+    .site-footer {
+
+      border-top:
+        1px solid
+        var(--border);
+
+      background: #030303;
+
+    }
+
+
+    .footer-container {
+
+      width:
+        min(
+          var(--max),
+          calc(100% - 40px)
+        );
+
+      margin: 0 auto;
+
+      padding: 70px 0 30px;
+
+    }
+
+
+    .footer-main {
+
+      display: grid;
+
+      grid-template-columns:
+        1.7fr
+        1fr
+        1fr;
+
+      gap: 70px;
+
+      padding-bottom: 55px;
+
+    }
+
+
+    /* FOOTER LOGO */
+
+    .footer-logo {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+
+      font-size: 20px;
+
+      font-weight: 700;
+
+      margin-bottom: 18px;
+
+    }
+
+
+    .footer-logo img {
+
+      width: 36px;
+
+      height: 36px;
+
+      display: block;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 0 10px
+          rgba(255,41,79,.30)
+        );
+
+    }
+
+
+    .footer-logo > span {
+
+      color: #fff;
+
+    }
+
+
+    .footer-logo > span > span {
+
+      color: var(--red);
+
+    }
+
+
+    .footer-description {
+
+      max-width: 360px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.8;
+
+      margin: 0;
+
+    }
+
+
+    /* FOOTER COLUMNS */
+
+    .footer-column h3 {
+
+      margin: 0 0 18px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      letter-spacing: .03em;
+
+      color: #fff;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .footer-links {
+
+      display: grid;
+
+      gap: 10px;
+
+    }
+
+
+    .footer-links a {
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      transition: color .2s ease;
+
+    }
+
+
+    .footer-links a:hover {
+
+      color: #fff;
+
+    }
+
+
+    /* FOOTER BOTTOM */
+
+    .footer-bottom {
+
+      min-height: 70px;
+
+      padding-top: 25px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.07);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color: var(--muted-2);
+
+      font-size: 12px;
+
+    }
+
+
+    /* SOCIAL ICONS */
+
+    .footer-socials {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+    }
+
+
+    .footer-social {
+
+      width: 38px;
+
+      height: 38px;
+
+      display: grid;
+
+      place-items: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.10);
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.025);
+
+      color: #999;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      transition: all .2s ease;
+
+    }
+
+
+    .footer-social:hover {
+
+      color: #fff;
+
+      border-color:
+        rgba(255,41,79,.55);
+
+      background:
+        rgba(255,41,79,.08);
+
+      transform:
+        translateY(-2px);
+
+    }
+
+
+    /* ======================================================
+       TABLET
+       ====================================================== */
+
+    @media (max-width: 1000px) {
+
+      .main-navigation {
+
+        gap: 18px;
+
+      }
+
+
+      .page-layout {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .sidebar {
+
+        position: static;
+
+        order: -1;
+
+      }
+
+
+      .side-card {
+
+        display: grid;
+
+        grid-template-columns:
+          1fr 1fr;
+
+        gap: 20px;
+
+      }
+
+
+      .side-divider {
+
+        display: none;
+
+      }
+
+
+      .footer-main {
+
+        grid-template-columns:
+          1.4fr
+          1fr;
+
+      }
+
+    }
+
+
+    /* ======================================================
+       MOBILE
+       ====================================================== */
+
+    @media (max-width: 720px) {
+
+      .header-container,
+      .hero,
+      .page-layout,
+      .footer-container {
+
+        width:
+          min(
+            calc(100% - 24px),
+            var(--max)
+          );
+
+      }
+
+
+      .header-container {
+
+        min-height: 68px;
+
+      }
+
+
+      .site-logo {
+
+        font-size: 17px;
+
+      }
+
+
+      .site-logo img {
+
+        width: 30px;
+
+        height: 30px;
+
+      }
+
+
+      .main-navigation {
+
+        display: none;
+
+      }
+
+
+      .mobile-menu {
+
+        display: grid;
+
+        place-items: center;
+
+      }
+
+
+      .hero {
+
+        padding:
+          70px 0 50px;
+
+      }
+
+
+      .content-featured-title {
+
+        font-size: 30px;
+
+        line-height: 1.15;
+
+        margin-top: 20px;
+
+      }
+
+
+      .hero-description {
+
+        font-size: 15px;
+
+      }
+
+
+      .article-card {
+
+        padding: 28px 20px;
+
+        border-radius: 18px;
+
+      }
+
+
+      .article {
+
+        font-size: 16px;
+
+      }
+
+
+      .article > p:first-child {
+
+        font-size: 18px;
+
+      }
+
+
+      .article h1 {
+
+        font-size: 32px;
+
+      }
+
+
+      .article h2 {
+
+        font-size: 25px;
+
+      }
+
+
+      .article h3 {
+
+        font-size: 20px;
+
+      }
+
+
+      .side-card {
+
+        display: block;
+
+      }
+
+
+      .side-divider {
+
+        display: block;
+
+      }
+
+
+      .footer-main {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+      }
+
+
+      .footer-bottom {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 22px 0;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body id="top">
+
+
+  <!-- ======================================================
+       BACKGROUND
+       ====================================================== -->
+
+  <div class="grid-bg"></div>
+
+  <div class="glow"></div>
+
+
+  <!-- ======================================================
+       DEV SPRINTS LAB HEADER
+       ====================================================== -->
+
+  <header class="site-header">
+
+    <div class="header-container">
+
+
+      <!-- LOGO -->
+
+      <a
+        class="site-logo"
+        href="https://devsprintslab.com/"
+        aria-label="Dev Sprints Lab Home"
+      >
+
+        <img
+          src="https://devsprintslab.com/assets/logo.png"
+          alt="Dev Sprints Lab Logo"
+          width="36"
+          height="36"
+        >
+
+        <span class="logo-text">
+          Dev Sprints <span>Lab</span>
+        </span>
+
+      </a>
+
+
+      <!-- DESKTOP NAVIGATION -->
+
+      <nav
+        class="main-navigation"
+        aria-label="Primary Navigation"
+      >
+
+        <a href="https://devsprintslab.com/">
+          Home
+        </a>
+
+        <a href="https://devsprintslab.com/#services">
+          Services
+        </a>
+
+        <a href="https://devsprintslab.com/#techstack">
+          Technologies
+        </a>
+
+        <a href="https://devsprintslab.com/#about">
+          About
+        </a>
+
+        <a href="https://devsprintslab.com/#contact">
+          Contact
+        </a>
+
+      </nav>
+
+
+      <!-- MOBILE MENU BUTTON -->
+
+      <button
+        class="mobile-menu"
+        type="button"
+        aria-label="Open Menu"
+        aria-expanded="false"
+        onclick="toggleMobileMenu(this)"
+      >
+        ☰
+      </button>
+
+    </div>
+
+
+    <!-- ====================================================
+         MOBILE NAVIGATION
+         ==================================================== -->
+
+    <div
+      id="mobileNavigation"
+      class="mobile-navigation"
+      style="
+        display:none;
+        padding:18px 20px 24px;
+        border-top:1px solid rgba(255,255,255,.08);
+        background:#050505;
+      "
+    >
+
+      <a
+        href="https://devsprintslab.com/"
+        style="
+          display:block;
+          padding:10px 0;
+          color:#aaa;
+        "
+      >
+        Home
+      </a>
+
+
+      <a
+        href="https://devsprintslab.com/#services"
+        style="
+          display:block;
+          padding:10px 0;
+          color:#aaa;
+        "
+      >
+        Services
+      </a>
+
+
+      <a
+        href="https://devsprintslab.com/#techstack"
+        style="
+          display:block;
+          padding:10px 0;
+          color:#aaa;
+        "
+      >
+        Technologies
+      </a>
+
+
+      <a
+        href="https://devsprintslab.com/#about"
+        style="
+          display:block;
+          padding:10px 0;
+          color:#aaa;
+        "
+      >
+        About
+      </a>
+
+
+      <a
+        href="https://devsprintslab.com/#contact"
+        style="
+          display:block;
+          padding:10px 0;
+          color:#aaa;
+        "
+      >
+        Contact
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ======================================================
+       MAIN BLOG
+       ====================================================== -->
+
+  <main>
+
+
+    <!-- BLOG HERO -->
+
+    <section class="hero">
+
+      <div class="hero-inner">
+
+        <div class="eyebrow">
+          Engineering
+        </div>
+
+
+        <div class="hero-description">
+          Expert guide on Next.js 15 architecture. Compare Server Actions vs Microservices for enterprise scaling and startup speed. Build with DevSprintsLab.
+        </div>
+
+
+        <div class="hero-meta">
+
+          <span>
+            By
+            <strong>
+              DevSprints Lab Team
+            </strong>
+          </span>
+
+
+          <span>
+            &bull;
+          </span>
+
+
+          <span>
+            Reading Time:
+            <strong>
+              4 min read
+            </strong>
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         BLOG CONTENT
+         ==================================================== -->
+
+    <div class="page-layout">
+
+
+      <!-- ARTICLE -->
+
+      <article class="article-card">
+
+        <div class="article">
+
+          <!-- ==============================================
+               FEATURED BLOG IMAGE
+               ============================================== -->
+
+          <div class="content-featured-image">
+
+            <div class="content-featured-image-wrap">
+
+              <img
+                src="https://raw.githubusercontent.com/ZainAwanCodes/testing-repository/main/images/nextjs-15-architecture-server-actions-vs-microservices.png"
+                alt="Next.js 15 Architecture: Server Actions vs Microservices - DevSprintsLab"
+                width="1200"
+                height="675"
+                loading="eager"
+                decoding="async"
+                onerror="this.onerror=null;this.src='https://devsprintslab.com/assets/logo.png'"
+              >
+
+            </div>
+
+            <!-- ============================================
+                 BLOG TITLE — H1 UNDER IMAGE
+                 ============================================ -->
+
+            <h1 class="content-featured-title">
+              Next.js 15 Architecture: Server Actions vs Microservices
+            </h1>
+
+          </div>
+
+          <!-- ==============================================
+               ARTICLE CONTENT
+               ============================================== -->
+
+          
+        <p>
+          The release of <a href="https://devsprintslab.com/#services" class="contextual-internal-link" style="color: #ff2d55; text-decoration: underline; font-weight: 600;" title="DevSprintsLab Web Development">Next.js 15</a> marks a pivotal moment in web engineering. For CTOs and technical founders, the framework has evolved from a React meta-framework into a comprehensive full-stack powerhouse. However, with great power comes a critical architectural crossroad: Should your organization lean into the unified simplicity of Server Actions, or decouple into a distributed microservices architecture?
+        </p>
+      
+
+        <p>
+          As a leading <strong>Next.js development agency</strong>, DevSprintsLab has architected systems ranging from rapid-growth AI startups to complex enterprise platforms. In this guide, we break down the technical trade-offs of Next.js 15’s full-stack patterns to help you build for the future.
+        </p>
+      
+<h2 id="section-1">
+          The Rise of the Unified Monolith: Next.js 15 Server Actions
+        </h2>
+
+        <p>
+          Next.js 15 has stabilized Server Actions, effectively blurring the line between frontend and backend. By allowing developers to define asynchronous functions that run on the server but are callable directly from the client, Next.js eliminates the need for manual API route management and boilerplate `fetch` calls.
+        </p>
+      
+<h3>Next.js 15 Server Actions Best Practices</h3>
+
+        <p>
+          When implementing Server Actions, security and type safety are paramount. At DevSprintsLab, we follow a strict protocol to ensure production-grade reliability:
+        </p>
+      
+<ol>
+<li><strong>Input Validation with Zod:</strong> Never trust client-side data. Every action must validate its payload using schemas.</li>
+<li><strong>Optimistic UI Updates:</strong> Use the `useOptimistic` hook to provide instant feedback, ensuring the application feels snappy even on slower networks.</li>
+<li><strong>Error Boundary Integration:</strong> Wrap actions in structured try/catch blocks that interface with Next.js error boundaries to prevent silent failures.</li>
+</ol>
+
+        <p>
+          ```typescript<br>// Example: Secure Server Action Pattern<br>&#039;use server&#039;;<br>import { z } from &#039;zod&#039;;<br>import { auth } from &#039;@/lib/auth&#039;;
+        </p>
+      
+
+        <p>
+          const Schema = z.object({ id: z.string() });
+        </p>
+      
+
+        <p>
+          export async function deleteRecord(formData: FormData) {<br>  const session = await auth();<br>  if (!session) throw new Error(&#039;Unauthorized&#039;);
+        </p>
+      
+
+        <p>
+          const { id } = Schema.parse({ id: formData.get(&#039;id&#039;) });<br>  await db.record.delete({ where: { id } });<br>  revalidatePath(&#039;/dashboard&#039;);<br>}<br>```
+        </p>
+      
+<h2 id="section-2">
+          Next.js vs Traditional Backend for Startups
+        </h2>
+
+        <p>
+          For early-stage startups, speed-to-market is the primary KPI. Choosing <strong>Next.js vs traditional backend for startups</strong> (like a separate Express or Django server) often results in a 30-40% reduction in development time.
+        </p>
+      
+
+        <p>
+          By keeping the entire stack in a single TypeScript codebase, teams reduce context switching and eliminate the overhead of maintaining API contracts (Swagger/OpenAPI) between two different repositories. Next.js 15’s built-in caching and streaming capabilities provide a level of performance that would take weeks to configure manually in a custom-built backend.
+        </p>
+      
+<h2 id="section-3">
+          Scaling Next.js with Microservices Architecture
+        </h2>
+
+        <p>
+          While Server Actions are excellent for CRUD operations and form handling, they are not a silver bullet. As your application grows, you may encounter <strong>enterprise Next.js full-stack patterns</strong> that necessitate a move toward microservices.
+        </p>
+      
+<h3>When to Decouple?</h3>
+<ol>
+<li><strong>Polyglot Requirements:</strong> If your application requires heavy data processing or AI orchestration (e.g., using Python’s FastAPI for LangGraph or RAG pipelines), a microservice is essential.</li>
+<li><strong>Independent Scaling:</strong> If your video processing service requires 10x more CPU than your frontend, it should live in its own container.</li>
+<li><strong>Team Autonomy:</strong> Large engineering organizations benefit from microservices by allowing different teams to deploy independently without risking the stability of the main Next.js application.</li>
+</ol>
+
+        <p>
+          <strong>Scaling Next.js with microservices architecture</strong> typically involves using Next.js as a &quot;Backend for Frontend&quot; (BFF). The Next.js server handles authentication, SSR, and orchestration, while specialized services (built with Python, Go, or Node.js) handle the heavy lifting via gRPC or REST.
+        </p>
+      
+<h2 id="section-4">
+          Enterprise Next.js Full-Stack Patterns: The Hybrid Approach
+        </h2>
+
+        <p>
+          At DevSprintsLab, we often recommend a hybrid architecture for our enterprise clients. This approach leverages the best of both worlds:
+        </p>
+      
+<ul>
+<li><strong>Next.js App Router:</strong> Handles the UI, routing, and simple data mutations via Server Actions.</li>
+<li><strong>External API Gateway:</strong> Connects Next.js to a suite of microservices for complex business logic.</li>
+<li><strong>Shared Type Definitions:</strong> Using tools like tRPC or generated TypeScript clients from OpenAPI specs to maintain type safety across the boundary.</li>
+</ul>
+
+        <p>
+          This hybrid model ensures that you maintain the high-velocity developer experience of Next.js while retaining the robustness of a distributed system.
+        </p>
+      
+<h2 id="section-5">
+          Why Partner with a Specialized Next.js Development Agency?
+        </h2>
+
+        <p>
+          Navigating the transition from a simple monolith to a scalable distributed system requires deep architectural expertise. DevSprintsLab specializes in building these high-performance systems. Whether you are migrating a legacy platform to Next.js 15 or building a new AI-powered web platform from scratch, our team ensures your stack is engineered for both performance and growth.
+        </p>
+      
+
+        <p>
+          Our expertise spans:<br><ul><br><li><strong>Custom AI Agents:</strong> Integrating FastAPI and LangGraph with Next.js frontends.</li><br><li><strong>Scalable Backends:</strong> Designing PostgreSQL and MongoDB schemas that handle millions of requests.</li><br><li><strong>Performance Optimization:</strong> Achieving perfect Lighthouse scores through advanced caching and edge computing.</li><br></ul>
+        </p>
+      
+<h2 id="section-6">
+          Conclusion
+        </h2>
+
+        <p>
+          Next.js 15 provides the most flexible foundation for modern web development. For many, Server Actions will be the definitive way to build. For others, the framework serves as the sophisticated entry point to a vast microservices ecosystem.
+        </p>
+      
+
+        <p>
+          Ready to scale your digital product? [Contact DevSprintsLab today](https://devsprintslab.com) to discuss your Next.js architecture with our engineering leads.
+        </p>
+      
+
+          
+    <div class="article-cta-box" style="margin: 48px 0 36px 0; padding: 36px 32px; background: linear-gradient(135deg, rgba(255, 41, 79, 0.08) 0%, rgba(20, 20, 25, 0.96) 100%); border: 1px solid rgba(255, 41, 79, 0.35); border-radius: 16px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4); position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; background: radial-gradient(circle, rgba(255, 41, 79, 0.25) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(255, 41, 79, 0.15); border: 1px solid rgba(255, 41, 79, 0.35); border-radius: 20px; font-size: 12px; font-weight: 600; color: #ff2d55; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">
+        <span>?</span> <span>DevSprintsLab ? Web Development</span>
+      </div>
+      <h3 style="font-size: 24px; font-weight: 800; color: #ffffff; margin: 0 0 12px 0; line-height: 1.3;">
+        Scale Your Web Development with DevSprintsLab
+      </h3>
+      <p style="font-size: 15px; color: #c0c0d0; line-height: 1.6; margin: 0 0 24px 0; max-width: 680px;">
+        Schedule a free technical discovery call with our senior engineering architects.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+        <a href="https://wa.me/message/AWUBBXDS63WZE1?text=Hi%20DevSprintsLab%2C%20I%20am%20interested%20in%20Web%20Development%20%5BRef%3A%20nextjs-15-architecture-server-actions-vs-microservices%20%7C%20id%3A%20blog_nextjs-15-architecture-server-actions-vs-microservices_1789907695421%5D" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: #25D366; color: #ffffff; font-weight: 700; font-size: 14px; border-radius: 10px; text-decoration: none;">
+          <span>?? Chat on WhatsApp</span>
+        </a>
+        <a href="https://devsprintslab.com/#contact?utm_source=blog&utm_medium=organic&utm_campaign=nextjs-15-architecture-server-actions-vs-microservices&content_id=blog_nextjs-15-architecture-server-actions-vs-microservices_1789907695421&target_service=web-development&cta=article_bottom_button" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: #FF2D55; color: #ffffff; font-weight: 700; font-size: 14px; border-radius: 10px; text-decoration: none;">
+          <span>Schedule Consultation ?</span>
+        </a>
+      </div>
+    </div>
+  
+
+          
+      <section class="faq-section">
+
+        <div class="section-label">
+          FAQ
+        </div>
+
+        <h2>
+          Frequently Asked Questions
+        </h2>
+
+        <div class="faq-list">
+
+          
+              <div class="faq-item">
+
+                <h3>
+                  Are Next.js 15 Server Actions secure for production?
+                </h3>
+
+                <p>
+                  Yes, Server Actions are secure if implemented with proper authorization checks and input validation (e.g., using Zod). They run exclusively on the server, meaning the logic is never exposed to the client-side bundle.
+                </p>
+
+              </div>
+            
+
+              <div class="faq-item">
+
+                <h3>
+                  When should I choose a traditional backend over Next.js?
+                </h3>
+
+                <p>
+                  A traditional backend (like Python/FastAPI or Go) is preferred when you have specialized compute needs, such as AI model orchestration, heavy data science workloads, or when you need to support multiple client types (mobile, web, IoT) with a single API.
+                </p>
+
+              </div>
+            
+
+              <div class="faq-item">
+
+                <h3>
+                  How does Next.js 15 improve performance for enterprise apps?
+                </h3>
+
+                <p>
+                  Next.js 15 introduces improved caching heuristics, partial pre-rendering (PPR), and optimized streaming. These features allow enterprise apps to deliver static-like speeds while maintaining dynamic, personalized content.
+                </p>
+
+              </div>
+            
+
+        </div>
+
+      </section>
+    
+
+        </div>
+
+      </article>
+
+
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+
+        <div class="side-card">
+
+
+          <!-- TABLE OF CONTENTS -->
+
+          <div>
+
+            <div class="side-title">
+              On This Page
+            </div>
+
+            <nav class="toc">
+
+              
+          <a href="#section-1">
+            The Rise of the Unified Monolith: Next.js 15 Server Actions
+          </a>
+        
+
+          <a href="#section-2">
+            Next.js vs Traditional Backend for Startups
+          </a>
+        
+
+          <a href="#section-3">
+            Scaling Next.js with Microservices Architecture
+          </a>
+        
+
+          <a href="#section-4">
+            Enterprise Next.js Full-Stack Patterns: The Hybrid Approach
+          </a>
+        
+
+          <a href="#section-5">
+            Why Partner with a Specialized Next.js Development Agency?
+          </a>
+        
+
+          <a href="#section-6">
+            Conclusion
+          </a>
+        
+
+            </nav>
+
+          </div>
+
+
+          <div class="side-divider"></div>
+
+
+          <!-- TOPICS -->
+
+          <div>
+
+            <div class="side-title">
+              Topics
+            </div>
+
+            <div class="tag-list">
+
+              
+    <span class="tag">
+      Next.js 15
+    </span>
+  
+
+    <span class="tag">
+      Full-Stack Architecture
+    </span>
+  
+
+    <span class="tag">
+      Web Development
+    </span>
+  
+
+    <span class="tag">
+      Microservices
+    </span>
+  
+
+            </div>
+
+          </div>
+
+          
+    <div class="side-divider"></div>
+    <div class="side-cta" style="padding: 22px 18px; background: rgba(255,41,79,0.06); border: 1px solid rgba(255,41,79,0.25); border-radius: 12px; text-align: center;">
+      <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: #ff2d55; letter-spacing: 0.5px; margin-bottom: 8px;">Partner With Us</div>
+      <h4 style="font-size: 15px; font-weight: 700; color: #fff; margin: 0 0 10px 0; line-height: 1.4;">Need Expert Web Development?</h4>
+      <p style="font-size: 12.5px; color: #aaa; margin: 0 0 16px 0; line-height: 1.5;">Let's engineer scalable digital solutions tailored to your business goals.</p>
+      <a href="https://wa.me/message/AWUBBXDS63WZE1?text=Hi%20DevSprintsLab%2C%20project%20inquiry%20from%20nextjs-15-architecture-server-actions-vs-microservices%20regarding%20Web%20Development%20%5Bid%3A%20blog_nextjs-15-architecture-server-actions-vs-microservices_sidebar%5D" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; padding: 10px 0; background: #FF2D55; color: #fff; border-radius: 8px; font-weight: 600; font-size: 13px; text-decoration: none;">Discuss Your Project</a>
+    </div>
+  
+
+          </div>
+
+
+        </div>
+
+      </aside>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================
+       DEV SPRINTS LAB FOOTER
+       ====================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="footer-container">
+
+
+      <div class="footer-main">
+
+
+        <!-- BRAND -->
+
+        <div>
+
+          <a
+            class="footer-logo"
+            href="https://devsprintslab.com/"
+            aria-label="Dev Sprints Lab Home"
+          >
+
+            <img
+              src="https://devsprintslab.com/assets/logo.png"
+              alt="Dev Sprints Lab Logo"
+              width="36"
+              height="36"
+            >
+
+            <span>
+              Dev Sprints <span>Lab</span>
+            </span>
+
+          </a>
+
+
+          <p class="footer-description">
+
+            Innovating Intelligence. Crafting the Future.
+            We build intelligent solutions that help businesses grow.
+
+          </p>
+
+        </div>
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+          <h3>
+            Quick Links
+          </h3>
+
+          <div class="footer-links">
+
+            <a href="https://devsprintslab.com/">
+              Home
+            </a>
+
+            <a href="https://devsprintslab.com/#about">
+              About Us
+            </a>
+
+            <a href="https://devsprintslab.com/#techstack">
+              Technologies
+            </a>
+
+            <a href="https://devsprintslab.com/#contact">
+              Contact
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <!-- SERVICES -->
+
+        <div class="footer-column">
+
+          <h3>
+            Services
+          </h3>
+
+          <div class="footer-links">
+
+            <a href="https://devsprintslab.com/#services">
+              Web Development
+            </a>
+
+            <a href="https://devsprintslab.com/#services">
+              AI Agents
+            </a>
+
+            <a href="https://devsprintslab.com/#services">
+              SEO &amp; Marketing
+            </a>
+
+            <a href="https://devsprintslab.com/#services">
+              WordPress &amp; Shopify
+            </a>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- ==================================================
+           FOOTER BOTTOM
+           ================================================== -->
+
+      <div class="footer-bottom">
+
+
+        <div>
+
+          © 2026
+          Dev Sprints Lab.
+          All rights reserved.
+
+        </div>
+
+
+        <!-- SOCIAL ICON STYLE -->
+
+        <div
+          class="footer-socials"
+          aria-label="Social links"
+        >
+
+          <span
+            class="footer-social"
+            title="LinkedIn"
+          >
+            in
+          </span>
+
+          <span
+            class="footer-social"
+            title="Facebook"
+          >
+            f
+          </span>
+
+          <span
+            class="footer-social"
+            title="GitHub"
+          >
+            GH
+          </span>
+
+          <span
+            class="footer-social"
+            title="Instagram"
+          >
+            ◎
+          </span>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  </footer>
+
+
+  <!-- ======================================================
+       MOBILE MENU SCRIPT
+       ====================================================== -->
+
+  <script>
+
+    function toggleMobileMenu(button) {
+
+      const menu =
+        document.getElementById(
+          'mobileNavigation'
+        );
+
+      const isOpen =
+        menu.style.display === 'block';
+
+      if (isOpen) {
+
+        menu.style.display = 'none';
+
+        button.setAttribute(
+          'aria-expanded',
+          'false'
+        );
+
+      } else {
+
+        menu.style.display = 'block';
+
+        button.setAttribute(
+          'aria-expanded',
+          'true'
+        );
+
+      }
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>
