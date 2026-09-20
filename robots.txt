@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /blogs/
+Allow: /blogsimages/
 
 Sitemap: https://devsprintslab.com/sitemap.xml
